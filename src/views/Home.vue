@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <ss-demo msg="This is first component for test!"></ss-demo>
   </div>
 </template>
 

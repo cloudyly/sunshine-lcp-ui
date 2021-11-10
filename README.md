@@ -1,5 +1,15 @@
 # sunshine-ui
 
+## 工程目录说明
+
+```
+sunshine-ui
+    |- src
+        |- components   存放组件库组件
+        |- scss         存放组件库样式
+    |- package.json
+```
+
 ## Project setup
 ```
 npm install
