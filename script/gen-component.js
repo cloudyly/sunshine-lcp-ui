@@ -47,7 +47,7 @@ process.stdin.on('data', async chunk => {
   logger.info('样式文件引入成功')
 
   // 组件文档
-  const docFile = file.resolvePath('../md-docs', `${componentName}.md`)
+  const docFile = file.resolvePath('../md-docs/components', `${componentName}.md`)
   await file.generateFile(docFile, tpl.docTpl(componentName))
 
   // 组件文档菜单
