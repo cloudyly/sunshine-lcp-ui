@@ -1,7 +1,7 @@
 {
   "name": "sunshine-ui",
   "packageManager": "yarn",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
