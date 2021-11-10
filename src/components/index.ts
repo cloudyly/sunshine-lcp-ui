@@ -1,9 +1,11 @@
 import { App } from 'vue'
 import SsDemo from './demo'
+import SsLayout from './layout'
 import '../scss/index.scss'
 
 const components = [
-  SsDemo
+  SsDemo,
+  SsLayout
 ] // end
 
 const install: (app: App) => void = (app: App) => {
