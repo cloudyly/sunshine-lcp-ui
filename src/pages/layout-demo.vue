@@ -8,12 +8,13 @@
  -->
 <template>
   <div class="full-screen">
-    <ss-layout :type="layoutType">
+    <ss-layout :type="layoutType" :is-expand="isExpand" left-width-mini="100px">
       <template #left>
         左侧菜单
       </template>
       <template #top>顶部菜单</template>
       <template #main>
+        <p>
         切换布局:
         <select v-model="layoutType" @change="onLayoutTypeChange">
           <option value="lr">左 - 右</option>
@@ -21,6 +22,10 @@
           <option value="ltb">左 - 上 - 下</option>
           <option value="tlr">上 - 左 - 右</option>
         </select>
+        </p>
+        <p>
+          <button @click="onToggleLeft">切换左侧</button>
+        </p>
         <h1>Hello Content</h1>
         <h1>Hello Content</h1>
         <h1>Hello Content</h1>
@@ -42,9 +47,15 @@ export default defineComponent({
     const onLayoutTypeChange = () => {
       console.log(layoutType.value)
     }
+    const isExpand = ref<boolean>(true)
+    const onToggleLeft = () => {
+      isExpand.value = !isExpand.value
+    }
     return {
       layoutType,
-      onLayoutTypeChange
+      onLayoutTypeChange,
+      isExpand,
+      onToggleLeft
     }
   }
 })

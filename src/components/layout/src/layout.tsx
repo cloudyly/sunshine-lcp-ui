@@ -42,13 +42,24 @@ export default defineComponent({
       type: String,
       required: false,
       default: '200px'
+    },
+    leftWidthMini: {
+      type: String,
+      required: false,
+      default: '50px'
+    },
+    isExpand: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   } as const,
   setup (props, { slots }) {
     const baseClassName = NAME + ' full-screen '
 
     const innerType = computed(() => props.type)
-    const innerLeftWidth = computed(() => props.leftWidth)
+    const innerIsExpand = computed(() => props.isExpand)
+    const innerLeftWidth = computed(() => innerIsExpand.value ? props.leftWidth : props.leftWidthMini)
     const innerTopHeight = computed(() => props.topHeight)
 
     const buildLR = () => {
