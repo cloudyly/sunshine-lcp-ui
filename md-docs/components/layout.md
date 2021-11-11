@@ -13,7 +13,6 @@
 | left-width | 左侧宽度 |  String | - | 200px |
 | left-width-mini | 左侧收缩后宽度 |  String | - | 80px |
 | is-expand | 左侧是否展开 |  Boolean | true / false | true |
-| is-fixed | 头部是否固定 | Boolean | true / false | true | 
 
 ### Methods 方法
 

@@ -26,12 +26,7 @@
         <p>
           <button @click="onToggleLeft">切换左侧</button>
         </p>
-        <h1>Hello Content</h1>
-        <h1>Hello Content</h1>
-        <h1>Hello Content</h1>
-        <h1>Hello Content</h1>
-        <h1>Hello Content</h1>
-        <h1>Hello Content</h1>
+        <h1 v-for="i in 20" :key="i">Hello Content {{i}}</h1>
       </template>
     </ss-layout>
   </div>
@@ -43,7 +38,7 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'layout-demo',
   setup () {
-    const layoutType = ref<string>('lr')
+    const layoutType = ref<string>('ltb')
     const onLayoutTypeChange = () => {
       console.log(layoutType.value)
     }
@@ -62,7 +57,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-::v-deep .SsLayout {
+:deep(.SsLayout) {
   .top {
     background-color: darkblue;
     color: white;

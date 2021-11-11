@@ -62,11 +62,21 @@ export default defineComponent({
     const innerLeftWidth = computed(() => innerIsExpand.value ? props.leftWidth : props.leftWidthMini)
     const innerTopHeight = computed(() => props.topHeight)
 
+    const buildMain = () => {
+      return (
+        <div class='full-screen oy-a'>
+          {slots.main && slots.main()}
+        </div>
+      )
+    }
+
     const buildLR = () => {
       return (
         <div class={baseClassName + ' f-r'}>
-          <div class='left' style={{ width: innerLeftWidth.value }}>{slots.left && slots.left()}</div>
-          <div class='right f-1'>{slots.main && slots.main()}</div>
+          <div class='left oy-a' style={{ width: innerLeftWidth.value }}>{slots.left && slots.left()}</div>
+          <div class='right f-1 oy-h'>
+            { buildMain() }
+          </div>
         </div>
       )
     }
@@ -75,7 +85,9 @@ export default defineComponent({
       return (
         <div class={baseClassName + ' f-c'}>
           <div class='top' style={{ height: innerTopHeight.value }}>{slots.top && slots.top()}</div>
-          <div class='bottom f-1'>{slots.main && slots.main()}</div>
+          <div class='bottom f-1 oy-h'>
+            { buildMain() }
+          </div>
         </div>
       )
     }
@@ -84,9 +96,11 @@ export default defineComponent({
       return (
         <div class={baseClassName + ' f-r'}>
           <div class='left' style={{ width: innerLeftWidth.value }}>{slots.left && slots.left()}</div>
-          <div class='right f-1 f-c'>
+          <div class='right f-1 f-c oy-h'>
             <div class='top' style={{ height: innerTopHeight.value }}>{slots.top && slots.top()}</div>
-            <div class='bottom f-1'>{slots.main && slots.main()}</div>
+            <div class='bottom f-1 oy-h'>
+              { buildMain() }
+            </div>
           </div>
         </div>
       )
@@ -96,9 +110,11 @@ export default defineComponent({
       return (
         <div class={baseClassName + ' f-c'}>
           <div class='top' style={{ height: innerTopHeight.value }}>{slots.top && slots.top()}</div>
-          <div class='bottom f-1 f-r'>
+          <div class='bottom f-1 f-r oy-h'>
             <div class='left' style={{ width: innerLeftWidth.value }}>{slots.left && slots.left()}</div>
-            <div class='right f-1'>{slots.main && slots.main()}</div>
+            <div class='right f-1'>
+              { buildMain() }
+            </div>
           </div>
         </div>
       )
