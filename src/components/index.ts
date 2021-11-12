@@ -3,13 +3,15 @@ import SsDemo from './demo'
 import SsLayout from './layout'
 import SsHeaderBar from './header-bar'
 import SsAppLogo from './app-logo'
+import SsLeftSide from './left-side'
 import '../scss/index.scss'
 
 const components = [
   SsDemo,
   SsLayout,
   SsHeaderBar,
-  SsAppLogo
+  SsAppLogo,
+  SsLeftSide
 ] // end
 
 const install: (app: App) => void = (app: App) => {

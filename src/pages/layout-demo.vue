@@ -10,7 +10,7 @@
   <div class="full-screen">
     <ss-layout :type="layoutType" :is-expand="isExpand" left-width-mini="100px">
       <template #left>
-        左侧菜单
+        <ss-left-side logo="logo.png" app-name="小云哥测试"></ss-left-side>
       </template>
       <template #top>
         <ss-header-bar logo="logo.png" app-name="小云哥测试"></ss-header-bar>
@@ -40,7 +40,7 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'layout-demo',
   setup () {
-    const layoutType = ref<string>('tlr')
+    const layoutType = ref<string>('lr')
     const onLayoutTypeChange = () => {
       // console.log(layoutType.value)
     }
