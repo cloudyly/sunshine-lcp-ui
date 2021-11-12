@@ -2,12 +2,14 @@ import { App } from 'vue'
 import SsDemo from './demo'
 import SsLayout from './layout'
 import SsHeaderBar from './header-bar'
+import SsAppLogo from './app-logo'
 import '../scss/index.scss'
 
 const components = [
   SsDemo,
   SsLayout,
-  SsHeaderBar
+  SsHeaderBar,
+  SsAppLogo
 ] // end
 
 const install: (app: App) => void = (app: App) => {

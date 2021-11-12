@@ -1,5 +1,12 @@
 @import "../tools/sassMagic";
 @import "../acss/mp";
+@import "../base/var";
 
 @include b('SsHeaderBar') {
+  background-color: rgba($color: $primary-color, $alpha: 0.2);
+  color: white;
+  overflow: hidden;
+  box-sizing: border-box;
+  @extend .f;
+  align-items: center;
 }

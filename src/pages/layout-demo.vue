@@ -12,7 +12,9 @@
       <template #left>
         左侧菜单
       </template>
-      <template #top>顶部菜单</template>
+      <template #top>
+        <ss-header-bar logo="logo.png" app-name="小云哥测试"></ss-header-bar>
+      </template>
       <template #main>
         <p>
         切换布局:
@@ -38,9 +40,9 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'layout-demo',
   setup () {
-    const layoutType = ref<string>('ltb')
+    const layoutType = ref<string>('tlr')
     const onLayoutTypeChange = () => {
-      console.log(layoutType.value)
+      // console.log(layoutType.value)
     }
     const isExpand = ref<boolean>(true)
     const onToggleLeft = () => {

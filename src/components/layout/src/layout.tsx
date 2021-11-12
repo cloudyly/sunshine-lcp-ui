@@ -1,13 +1,14 @@
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, provide } from 'vue'
+import {
+  defaultLayoutType,
+  defaultLeftWidth,
+  defaultLeftWidthMini, defaultTopHeight,
+  LayoutType,
+  LayoutValues,
+  LayoutValuesKey
+} from '@/components/layout/src/constant'
 
 const NAME = 'SsLayout'
-
-const LAYOUT_TYPE: { [k: string]: string } = {
-  LR: 'lr', // 左 - 右
-  TB: 'tb', // 上 - 下
-  TLR: 'tlr', // 上 - 下（左右）
-  LTB: 'ltb' // 左 - 右（上下）
-}
 
 export default defineComponent({
   name: NAME,
@@ -15,12 +16,12 @@ export default defineComponent({
     type: {
       type: String,
       required: false,
-      default: LAYOUT_TYPE.LR,
+      default: defaultLayoutType,
       validator (value: string) {
         if (!value) {
           return true
         }
-        return Object.keys(LAYOUT_TYPE).map(k => LAYOUT_TYPE[k]).includes(value)
+        return Object.keys(LayoutType).map(k => LayoutType[k]).includes(value)
       }
     },
     collapsible: {
@@ -36,17 +37,17 @@ export default defineComponent({
     topHeight: {
       type: String,
       required: false,
-      default: '48px'
+      default: defaultTopHeight
     },
     leftWidth: {
       type: String,
       required: false,
-      default: '200px'
+      default: defaultLeftWidth
     },
     leftWidthMini: {
       type: String,
       required: false,
-      default: '50px'
+      default: defaultLeftWidthMini
     },
     isExpand: {
       type: Boolean,
@@ -61,6 +62,13 @@ export default defineComponent({
     const innerIsExpand = computed(() => props.isExpand)
     const innerLeftWidth = computed(() => innerIsExpand.value ? props.leftWidth : props.leftWidthMini)
     const innerTopHeight = computed(() => props.topHeight)
+
+    provide<LayoutValues>(LayoutValuesKey, {
+      layoutTypeRef: innerType,
+      leftWidthRef: innerLeftWidth,
+      topHeightRef: innerTopHeight,
+      isExpandRef: innerIsExpand
+    })
 
     const buildMain = () => {
       return (
@@ -121,13 +129,13 @@ export default defineComponent({
     }
 
     const buildLayout = () => {
-      if (innerType.value === LAYOUT_TYPE.LR) {
+      if (innerType.value === LayoutType.LR) {
         return buildLR()
-      } else if (innerType.value === LAYOUT_TYPE.TB) {
+      } else if (innerType.value === LayoutType.TB) {
         return buildTB()
-      } else if (innerType.value === LAYOUT_TYPE.LTB) {
+      } else if (innerType.value === LayoutType.LTB) {
         return buildLTB()
-      } else if (innerType.value === LAYOUT_TYPE.TLR) {
+      } else if (innerType.value === LayoutType.TLR) {
         return buildTLR()
       }
     }

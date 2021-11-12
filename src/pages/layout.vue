@@ -12,7 +12,6 @@
       <ss-header-bar></ss-header-bar>
     </template>
     <template #left>Left Nav</template>
-<!--    <template #main>Main</template>-->
   </ss-layout>
 </template>
 
