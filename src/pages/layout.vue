@@ -8,7 +8,9 @@
  -->
 <template>
   <ss-layout type="tlr">
-    <template #top>Top Nav</template>
+    <template #top>
+      <ss-header-bar></ss-header-bar>
+    </template>
     <template #left>Left Nav</template>
 <!--    <template #main>Main</template>-->
   </ss-layout>
