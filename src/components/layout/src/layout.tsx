@@ -65,7 +65,7 @@ export default defineComponent({
     const buildMain = () => {
       return (
         <div class='full-screen oy-a'>
-          {slots.main && slots.main()}
+          {slots.main ? slots.main() : <router-view/>}
         </div>
       )
     }

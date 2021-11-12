@@ -5,6 +5,22 @@ const routes: Array<RouteRecordRaw> = [
     path: '/layout-demo',
     name: 'layout-demo',
     component: () => import('@/pages/layout-demo.vue')
+  },
+  {
+    path: '/layout',
+    name: 'layout',
+    component: () => import('@/pages/layout.vue'),
+    children: [
+      {
+        path: '',
+        redirect: { name: 'demo' }
+      },
+      {
+        path: 'demo',
+        name: 'demo',
+        component: () => import('@/pages/demo.vue')
+      }
+    ]
   }
 ]
 

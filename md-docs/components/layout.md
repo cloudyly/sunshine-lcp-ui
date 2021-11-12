@@ -13,6 +13,7 @@
 | left-width | 左侧宽度 |  String | - | 200px |
 | left-width-mini | 左侧收缩后宽度 |  String | - | 80px |
 | is-expand | 左侧是否展开 |  Boolean | true / false | true |
+| is-show-page-tab | 是否显示页签 | Boolean | true / false | True |
 
 ### Methods 方法
 
@@ -30,4 +31,7 @@
 
 | 插槽名 | 说明 | 参数 |
 |  ----  | ----  | ----  |
-|  |  |  |
+| top | 顶部插槽（仅对`type`为`tb`, `ltb`, `tlr`类型生效） | 无 |
+| left | 左侧插槽（仅对 `type` 为 `lr`, `ltb`, `tlr`类型生效） | 无 |
+| main | 主体内容区域插槽，如果未设置改插槽，默认为 <router-view /> | 无 |
+
