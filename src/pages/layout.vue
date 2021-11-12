@@ -9,7 +9,7 @@
 <template>
   <ss-layout type="tlr">
     <template #top>
-      <ss-header-bar></ss-header-bar>
+      <ss-header-bar logo="logo.png" app-name="小云哥测试"></ss-header-bar>
     </template>
     <template #left>Left Nav</template>
   </ss-layout>

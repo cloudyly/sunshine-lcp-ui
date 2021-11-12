@@ -3,7 +3,8 @@
 @import "../base/var";
 
 @include b('SsHeaderBar') {
-  background-color: rgba($color: $primary-color, $alpha: 0.2);
+  background-color: rgba($color: $primary-color, $alpha: 0.9);
+  height: 100%;
   color: white;
   overflow: hidden;
   box-sizing: border-box;
