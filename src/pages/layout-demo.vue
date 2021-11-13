@@ -40,7 +40,7 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'layout-demo',
   setup () {
-    const layoutType = ref<string>('lr')
+    const layoutType = ref<string>('tlr')
     const onLayoutTypeChange = () => {
       // console.log(layoutType.value)
     }
@@ -61,7 +61,7 @@ export default defineComponent({
 <style scoped lang="scss">
 :deep(.SsLayout) {
   .top {
-    background-color: darkblue;
+    //background-color: darkblue;
     color: white;
   }
 

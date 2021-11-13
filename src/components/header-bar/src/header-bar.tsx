@@ -30,7 +30,10 @@ export default defineComponent({
       return (
         <div class={NAME}>
           { renderSiteInfo() }
-          <div class={`${NAME}--menu-list`}>Menu-List</div>
+          <div class={`${NAME}--menu-list`}>
+            <ss-svg-icon icon='menu-btn'></ss-svg-icon>
+            <ss-svg-icon icon='screen-full'></ss-svg-icon>
+          </div>
           <div class={`${NAME}--opt-list`}>opt-btn-group</div>
         </div>
       )
