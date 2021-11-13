@@ -1,0 +1,11 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('SsToggleLeft') {
+  cursor: pointer;
+
+  @include m('is-collapse') {
+    cursor: pointer;
+    transform:rotate(90deg);
+  }
+}

@@ -1,4 +1,4 @@
-import { computed, defineComponent, provide } from 'vue'
+import { computed, defineComponent, onMounted, onUnmounted, provide, ref } from 'vue'
 import {
   defaultLayoutType,
   defaultLeftWidth,
@@ -7,6 +7,8 @@ import {
   LayoutValues,
   LayoutValuesKey
 } from '@/components/layout/src/constant'
+import emitter, { EVENT_EXPAND_LEFT } from '@/components/emitter'
+import { Handler } from 'mitt'
 
 const NAME = 'SsLayout'
 
@@ -58,8 +60,21 @@ export default defineComponent({
   setup (props, { slots }) {
     const baseClassName = NAME + ' full-screen '
 
+    const isExpandByChild = ref<boolean>(props.isExpand)
+    const expandCallBack = (isExpand: boolean) => {
+      isExpandByChild.value = isExpand
+    }
+
+    onMounted(() => {
+      emitter.on(EVENT_EXPAND_LEFT, expandCallBack as Handler)
+    })
+
+    onUnmounted(() => {
+      emitter.off(EVENT_EXPAND_LEFT, expandCallBack as Handler)
+    })
+
     const innerType = computed(() => props.type)
-    const innerIsExpand = computed(() => props.isExpand)
+    const innerIsExpand = computed(() => isExpandByChild.value)
     const innerLeftWidth = computed(() => innerIsExpand.value ? props.leftWidth : props.leftWidthMini)
     const innerTopHeight = computed(() => props.topHeight)
 
