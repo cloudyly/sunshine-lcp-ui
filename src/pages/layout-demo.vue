@@ -8,12 +8,12 @@
  -->
 <template>
   <div class="full-screen">
-    <ss-layout :type="layoutType" :is-expand="isExpand" left-width-mini="100px">
+    <ss-layout :type="layoutType" :is-expand="isExpand">
       <template #left>
         <ss-left-side logo="logo.png" app-name="小云哥测试"></ss-left-side>
       </template>
       <template #top>
-        <ss-header-bar logo="logo.png" app-name="小云哥测试"></ss-header-bar>
+        <ss-header-bar logo="logo.png" app-name="小云哥测试" :is-show-toggle-left="true"></ss-header-bar>
       </template>
       <template #main>
         <p>

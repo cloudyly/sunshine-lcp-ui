@@ -17,7 +17,7 @@
 | is-show-full-screen | 是否展示全屏显示按钮 | Boolean | true / false | true |
 | is-show-user-info | 是否展示用户信息 | Boolean | true / false | true |
 | full-name | 用户姓名 | String |  |  |
-|  |  |  |  |  |
+| is-show-toggle-left | 是否显示收缩展开左侧菜单按钮 | Boolean | true / false | true |
 
 #### NavItem
 

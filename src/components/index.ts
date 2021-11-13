@@ -6,6 +6,7 @@ import SsAppLogo from './app-logo'
 import SsLeftSide from './left-side'
 import SsSvgIcon from './svg-icon'
 import SsToggleLeft from './toggle-left'
+import SsToggleScreen from './toggle-screen'
 import '../scss/index.scss'
 
 const components = [
@@ -15,7 +16,8 @@ const components = [
   SsAppLogo,
   SsLeftSide,
   SsSvgIcon,
-  SsToggleLeft
+  SsToggleLeft,
+  SsToggleScreen
 ] // end
 
 const install: (app: App) => void = (app: App) => {
