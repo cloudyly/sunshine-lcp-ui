@@ -13,7 +13,12 @@
         <ss-left-side logo="logo.png" app-name="小云哥测试"></ss-left-side>
       </template>
       <template #top>
-        <ss-header-bar logo="logo.png" app-name="小云哥测试" :is-show-toggle-left="true"></ss-header-bar>
+        <ss-header-bar logo="logo.png"
+                       app-name="小云哥测试"
+                       :is-show-toggle-left="true"
+                       :is-show-toggle-screen="true"
+                       full-name="张三"
+        ></ss-header-bar>
       </template>
       <template #main>
         <p>

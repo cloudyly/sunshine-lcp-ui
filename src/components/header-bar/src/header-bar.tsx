@@ -22,6 +22,16 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: true
+    },
+    isShowToggleScreen: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    fullName: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   setup (props) {
@@ -56,7 +66,9 @@ export default defineComponent({
             menu-list
           </div>
           <div class={`${NAME}--opt-list`}>
-            <ss-toggle-screen />
+            { props.isShowToggleScreen ? <ss-toggle-screen /> : null }
+
+            { props.fullName ? <span class='full-name'>当前用户： { props.fullName }</span> : null }
           </div>
         </div>
       )

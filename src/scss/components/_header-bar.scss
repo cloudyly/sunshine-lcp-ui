@@ -20,6 +20,12 @@
   }
 
   @include m(opt-list) {
+    @extend .f;
     margin-right: 20px;
+
+    .full-name {
+      margin-left: 20px;
+      font-size: 14px;
+    }
   }
 }
