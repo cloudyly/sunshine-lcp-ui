@@ -1,9 +1,14 @@
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import { useLayoutValues } from '@/components/hooks/use-layout-values'
 import { useRenderSiteInfo } from '@/components/hooks/use-render-site-info'
 import { LayoutType } from '@/components/layout/src/constant'
 
 const NAME = 'SsHeaderBar'
+
+export interface NavItem {
+  code: string;
+  name: string;
+}
 
 export default defineComponent({
   name: NAME,
@@ -32,9 +37,19 @@ export default defineComponent({
       type: String,
       required: false,
       default: ''
+    },
+    navList: {
+      type: Array as PropType<NavItem[]>,
+      required: false,
+      default: () => ([])
+    },
+    defaultActiveNav: {
+      type: String,
+      required: false,
+      default: null
     }
   },
-  setup (props) {
+  setup (props, context) {
     const layoutValues = useLayoutValues()
 
     const renderSiteInfo = () => {
@@ -56,19 +71,40 @@ export default defineComponent({
         </div>
       )
     }
+
+    const innerActiveNavRef = ref(props.defaultActiveNav
+      ? props.defaultActiveNav
+      : (props.navList.length > 0 ? props.navList[0].code : ''))
+
+    const onNavItemClick = (navItem: NavItem) => {
+      innerActiveNavRef.value = navItem.code
+      context.emit('nav-click', navItem)
+    }
+
     return () => {
       return (
         <div class={NAME}>
-          { renderSiteInfo() }
+          {renderSiteInfo()}
 
-          { renderToggleBtn() }
+          {renderToggleBtn()}
+
+          {/* 渲染顶部导航菜单列表 */}
           <div class={`${NAME}--menu-list`}>
-            menu-list
+            {
+              props.navList.map((item) => {
+                const className = item.code === innerActiveNavRef.value ? 'menu-item active' : 'menu-item'
+                return (
+                  <div class={className} onClick={() => onNavItemClick(item)}>{item.name}</div>
+                )
+              })
+            }
           </div>
-          <div class={`${NAME}--opt-list`}>
-            { props.isShowToggleScreen ? <ss-toggle-screen /> : null }
 
-            { props.fullName ? <span class='full-name'>当前用户： { props.fullName }</span> : null }
+          <div class={`${NAME}--opt-list`}>
+            {/* 渲染切换全屏按钮 */}
+            {props.isShowToggleScreen ? <ss-toggle-screen/> : null}
+            {/* 渲染用户名 */}
+            {props.fullName ? <span class='full-name'>当前用户： {props.fullName}</span> : null}
           </div>
         </div>
       )

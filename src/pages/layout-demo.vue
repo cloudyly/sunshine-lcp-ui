@@ -17,7 +17,9 @@
                        app-name="小云哥测试"
                        :is-show-toggle-left="true"
                        :is-show-toggle-screen="true"
+                       :nav-list="navList"
                        full-name="张三"
+                       @nav-click="onTopNavItemClick"
         ></ss-header-bar>
       </template>
       <template #main>
@@ -40,7 +42,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
+import { NavItem } from '@/components/header-bar/src/header-bar'
 
 export default defineComponent({
   name: 'layout-demo',
@@ -53,11 +56,22 @@ export default defineComponent({
     const onToggleLeft = () => {
       isExpand.value = !isExpand.value
     }
+    const navList = reactive<NavItem[]>([
+      { code: 'member', name: '会员管理' },
+      { code: 'point', name: '积分管理' },
+      { code: 'promotion', name: '营销管理' },
+      { code: 'system', name: '系统管理' }
+    ])
+    const onTopNavItemClick = (topNavItem: NavItem) => {
+      console.log(topNavItem.name)
+    }
     return {
       layoutType,
       onLayoutTypeChange,
       isExpand,
-      onToggleLeft
+      onToggleLeft,
+      navList,
+      onTopNavItemClick
     }
   }
 })
@@ -67,7 +81,7 @@ export default defineComponent({
 :deep(.SsLayout) {
   .top {
     //background-color: darkblue;
-    color: white;
+    //color: white;
   }
 
   .bottom {

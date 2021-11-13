@@ -16,7 +16,27 @@
   }
 
   @include m(menu-list) {
-    flex: 1;
+    @extend .f-1;
+    @extend .f;
+    justify-content: center;
+
+    .menu-item {
+      font-size: 14px;
+      height: 100%;
+      box-sizing: border-box;
+      margin: 0 3px;
+      padding: 10px 14px;
+      border-radius: 3px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba($color: $primary-color, $alpha: 0.7);
+      }
+    }
+
+    .active {
+      background-color: rgba($color: $primary-color, $alpha: 0.9);
+    }
   }
 
   @include m(opt-list) {
