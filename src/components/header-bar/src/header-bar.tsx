@@ -56,6 +56,7 @@ export default defineComponent({
             menu-list
           </div>
           <div class={`${NAME}--opt-list`}>
+            <ss-toggle-screen />
           </div>
         </div>
       )

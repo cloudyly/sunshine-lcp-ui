@@ -8,6 +8,7 @@ import SsSvgIcon from './svg-icon'
 import SsToggleLeft from './toggle-left'
 import SsToggleScreen from './toggle-screen'
 import '../scss/index.scss'
+import ElementPlus from 'element-plus'
 
 const components = [
   SsDemo,
@@ -22,7 +23,7 @@ const components = [
 
 const install: (app: App) => void = (app: App) => {
   // 引入 Element Plus
-  // app.use(ElementPlus)
+  app.use(ElementPlus)
 
   // 引入自定义组件
   components.forEach(component => {

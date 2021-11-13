@@ -1,14 +1,41 @@
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
+import screenfull from 'screenfull'
 
 const NAME = 'SsToggleScreen'
 
 export default defineComponent({
   name: NAME,
-  setup (props, context) {
-    console.log(props, context)
+  setup () {
+    const isFullScreen = ref<boolean>(false)
+
+    const setIsFullScreen = () => {
+      isFullScreen.value = screenfull.isFullscreen
+    }
+
+    onMounted(() => {
+      if (screenfull.isEnabled) {
+        screenfull.on('change', setIsFullScreen)
+      }
+    })
+
+    onUnmounted(() => {
+      if (screenfull.isEnabled) {
+        screenfull.off('change', setIsFullScreen)
+      }
+    })
+
+    const onBtnClick = async () => {
+      if (screenfull.isEnabled) {
+        await screenfull.toggle()
+      } else {
+        console.log('当前浏览器不支持该全屏功能，可尝试使用F11触发全屏')
+      }
+    }
     return () => (
-      <div class={NAME}>
-        toggle-screen
+      <div class={NAME} onClick={onBtnClick}>
+        <ss-svg-icon
+          icon={isFullScreen.value ? 'screen-normal' : 'screen-full'}
+        />
       </div>
     )
   }
