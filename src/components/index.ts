@@ -7,6 +7,7 @@ import SsLeftSide from './left-side'
 import SsSvgIcon from './svg-icon'
 import SsToggleLeft from './toggle-left'
 import SsToggleScreen from './toggle-screen'
+import SsPage from './page'
 import '../scss/index.scss'
 import ElementPlus from 'element-plus'
 
@@ -18,7 +19,8 @@ const components = [
   SsLeftSide,
   SsSvgIcon,
   SsToggleLeft,
-  SsToggleScreen
+  SsToggleScreen,
+  SsPage
 ] // end
 
 const install: (app: App) => void = (app: App) => {

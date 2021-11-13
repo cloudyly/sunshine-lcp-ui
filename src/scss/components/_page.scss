@@ -1,0 +1,18 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+$whiteHeight: 15px;
+$spaceWidth: 15px;
+
+@include b('SsPage') {
+  height: calc(100% - #{$whiteHeight * 2});
+  overflow: hidden;
+  margin: $whiteHeight $whiteHeight - $spaceWidth $whiteHeight $whiteHeight;
+  box-sizing: border-box;
+
+  @include e('container') {
+    height: 100%;
+    padding-right: $spaceWidth;
+    overflow-y: auto;
+  }
+}

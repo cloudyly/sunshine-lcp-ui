@@ -7,8 +7,10 @@
  * 2021/11/12 6:20 PM   dscloudy    Create File.
  -->
 <template>
-  <div>This is sub page - demo!</div>
-  <h1 v-for="i in 20" :key="i">Hello - {{i}}</h1>
+  <ss-page>
+    <div>This is sub page - demo!</div>
+    <h1 v-for="i in 20" :key="i">Hello - {{i}}</h1>
+  </ss-page>
 </template>
 
 <script lang="ts">
