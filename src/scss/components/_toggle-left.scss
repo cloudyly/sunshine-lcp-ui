@@ -1,11 +1,22 @@
 @import "../tools/sassMagic";
 @import "../acss/mp";
+@import "../base/var";
 
 @include b('SsToggleLeft') {
   cursor: pointer;
+  padding: 5px;
+
+  &:hover {
+    background-color: rgba($color: $primary-color, $alpha: 0.6);
+  }
 
   @include m('is-collapse') {
     cursor: pointer;
     transform:rotate(90deg);
+    padding: 5px;
+
+    &:hover {
+      background-color: rgba($color: $primary-color, $alpha: 0.6);
+    }
   }
 }

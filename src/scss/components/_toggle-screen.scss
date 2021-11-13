@@ -3,4 +3,9 @@
 
 @include b('SsToggleScreen') {
   cursor: pointer;
+  padding: 5px;
+
+  &:hover {
+    background-color: rgba($color: $primary-color, $alpha: 0.6);
+  }
 }
