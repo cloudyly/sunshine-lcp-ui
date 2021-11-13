@@ -8,8 +8,12 @@
  -->
 <template>
   <ss-page>
-    <div>This is sub page - demo!</div>
-    <h1 v-for="i in 20" :key="i">Hello - {{i}}</h1>
+    <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
+      <template v-slot:opt>
+        <el-button type="text">测试按钮</el-button>
+      </template>
+      <div v-for="o in 4" :key="o" class="text item">{{ '正文内容 ' + o }}</div>
+    </ss-card>
   </ss-page>
 </template>
 

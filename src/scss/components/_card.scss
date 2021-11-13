@@ -1,0 +1,30 @@
+@import "../tools/sassMagic";
+@import "../acss/mp";
+
+@include b('SsCard') {
+  margin: 10px 0;
+
+  .el-card__header {
+    padding: 10px 15px;
+  }
+
+  @include e('header') {
+    font-size: 14px;
+    box-sizing: border-box;
+
+    @include box-center(space-between, center);
+
+    @include m('title') {
+      font-size: 16px;
+      cursor: pointer;
+
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  @include e('content') {
+    padding: 12px;
+  }
+}

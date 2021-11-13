@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 // 引入 sunshine-ui 组件库
 import SunshineUI from './components'
 
@@ -14,6 +16,7 @@ const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => {
 requireAll(allRequireSvg)
 
 const app = createApp(App)
+app.use(ElementPlus, { size: 'mini' })
 app.use(SunshineUI)
 app.use(store)
   .use(router)
