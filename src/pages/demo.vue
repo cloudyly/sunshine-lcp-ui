@@ -8,7 +8,8 @@
  -->
 <template>
   <ss-page>
-    <ss-table :schema="demoSchema"></ss-table>
+    <ss-table :schema="demoSchema" :data="demoData" :stripe="true" :border="true"
+    ></ss-table>
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
       <template v-slot:opt>
         <el-button type="text">测试按钮</el-button>
@@ -20,15 +21,17 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import demoJsonSchema from '@/pages/demo-json-schema'
+import demoJsonSchema, { demoTableData } from '@/pages/demo-json-schema'
 import { Schema } from '@/components/types/common-types'
 
 export default defineComponent({
   name: 'demo',
   setup () {
     const demoSchema = reactive<Schema>(demoJsonSchema)
+    const demoData = reactive<any[]>(demoTableData)
     return {
-      demoSchema
+      demoSchema,
+      demoData
     }
   }
 })
