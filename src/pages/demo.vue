@@ -9,6 +9,14 @@
 <template>
   <ss-page>
     <ss-table :schema="demoSchema" :data="demoData" :stripe="true" :border="true"
+              show-pagination="always"
+              :total="demoData.length"
+              :is-pseudo-paging="true"
+              :current-page="1"
+              :page-size="3"
+              height="300px"
+              @current-change="onPageChange"
+              @size-change="onPageChange"
     ></ss-table>
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
       <template v-slot:opt>
@@ -29,9 +37,13 @@ export default defineComponent({
   setup () {
     const demoSchema = reactive<Schema>(demoJsonSchema)
     const demoData = reactive<any[]>(demoTableData)
+    const onPageChange = (page: {currentPage: number, pageSize: number}) => {
+      console.log(`分页发生变化: ${page.currentPage}, ${page.pageSize}`)
+    }
     return {
       demoSchema,
-      demoData
+      demoData,
+      onPageChange
     }
   }
 })

@@ -6,8 +6,26 @@
 
   .header-row {
     th {
-      background-color: rgba($color: $primary-color, $alpha: .7);
+      background-color: rgba($color: $primary-color, $alpha: .8);
       color: white;
+    }
+  }
+
+  @include e(pager) {
+    margin: 15px 0;
+    text-align: right;
+
+    .el-pagination.is-background {
+      .el-pager li:not(.disabled).active {
+        background-color: rgba($color: $primary-color, $alpha: .8);
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+      .el-pager li:hover {
+        color: rgba($color: $primary-color, $alpha: .8);
+      }
     }
   }
 }

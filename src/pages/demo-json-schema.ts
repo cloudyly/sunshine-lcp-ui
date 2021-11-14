@@ -93,7 +93,7 @@ const demoJsonSchema: Schema = {
 const demoTableData: any[] = []
 for (let i = 0; i < 10; i++) {
   demoTableData.push({
-    name: 'XXX',
+    name: `XXX - ${i}`,
     price: 12345.678,
     enum: '2',
     anyOf: ['1', '2'],
