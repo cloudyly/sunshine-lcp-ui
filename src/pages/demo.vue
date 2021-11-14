@@ -13,10 +13,11 @@
               :total="demoData.length"
               :is-pseudo-paging="true"
               :current-page="1"
-              :page-size="3"
+              :page-size="5"
               height="300px"
               :is-show-index="true"
               :indexMethod="demoIndexMethod"
+              selection-type="checkbox"
               @current-change="onPageChange"
               @size-change="onPageChange"
     ></ss-table>

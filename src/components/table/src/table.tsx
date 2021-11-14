@@ -31,6 +31,17 @@ export default defineComponent({
       required: false,
       default: null
     },
+    selectionType: {
+      type: String,
+      required: false,
+      default: '',
+      validator (value: string) {
+        if (!value) {
+          return true
+        }
+        return ['checkbox', 'radio'].includes(value)
+      }
+    },
     total: {
       type: Number,
       required: false,
@@ -80,9 +91,21 @@ export default defineComponent({
       />
     )
 
+    const renderSelectionCheckbox = () => (
+      <ElTableColumn
+        type="selection"
+        width="50"
+        align="center"
+      />
+    )
+
     const renderColumns = () => {
       const { properties } = props.schema
       const tableColumns: JSX.Element[] = []
+
+      if (props.selectionType === 'checkbox') {
+        tableColumns.push(renderSelectionCheckbox())
+      }
 
       if (props.isShowIndex) {
         tableColumns.push(renderIndex())
