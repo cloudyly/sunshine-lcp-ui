@@ -1,16 +1,24 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
 import { PropItem, Schema } from '@/components/types/common-types'
 import { renderColumnBySchema } from '@/components/table/src/table-utils'
-import { ElTable, ElTableColumn } from 'element-plus'
+import { ElTableColumn } from 'element-plus'
+import { TableColumn } from 'element-plus/es/components/table/src/table-column/defaults'
 
 const NAME = 'SsTable'
 
 const EVENT_CURRENT_CHANGE = 'current-change'
 const EVENT_SIZE_CHANGE = 'size-change'
+const EVENT_CELL_CLICK = 'cell-click'
+const EVENT_SELECTION_CHANGE = 'selection-change'
 
 export default defineComponent({
   name: NAME,
-  emits: [EVENT_CURRENT_CHANGE, EVENT_SIZE_CHANGE],
+  emits: [
+    EVENT_CURRENT_CHANGE,
+    EVENT_SIZE_CHANGE,
+    EVENT_CELL_CLICK,
+    EVENT_SELECTION_CHANGE
+  ],
   props: {
     schema: {
       type: Object as PropType<Schema>,
@@ -76,6 +84,8 @@ export default defineComponent({
     }
   } as const,
   setup (props, { attrs, emit }) {
+    const tableRef = ref()
+
     const defaultIndexMethod = (index: number) => {
       const start = (innerCurrentPage.value - 1) * innerPageSize.value
       return (start + index + 1)
@@ -150,23 +160,40 @@ export default defineComponent({
       })
     }
 
+    const onCellClick = (row: any, column: TableColumn<any>, cell: HTMLElement, event: Event) => {
+      if (tableRef.value) {
+        tableRef.value.toggleRowSelection(row)
+      }
+      emit(EVENT_CELL_CLICK, row, column, cell, event)
+    }
+
+    const selectionList = ref<any>([])
+
+    const onSelectionChange = (selection: any[]) => {
+      selectionList.value = selection
+      emit(EVENT_SELECTION_CHANGE, selection)
+    }
+
     return () => {
       return (
         <div class={NAME}>
-          <ElTable
+          <el-table
+            ref={tableRef}
             data={innerData.value}
             {...attrs}
             headerRowClassName={'header-row'}
+            onCellClick={onCellClick}
+            onSelectionChange={onSelectionChange}
           >
             {renderColumns()}
-          </ElTable>
+          </el-table>
 
           {['always', 'auto'].includes(props.showPagination) ? (
             <div class={`${NAME}__pager`}>
               <el-pagination
                 background
                 small
-                layout="prev, pager, next, jumper, sizes, ->, aa"
+                layout="total, sizes, prev, pager, next, jumper, ->"
                 total={props.isPseudoPaging ? props.data.length : props.total}
                 hideOnSinglePage={props.showPagination === 'auto'}
                 currentPage={innerCurrentPage.value}

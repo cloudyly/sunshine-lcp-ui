@@ -20,6 +20,7 @@
               selection-type="checkbox"
               @current-change="onPageChange"
               @size-change="onPageChange"
+              @selection-change="onSelectionChange"
     ></ss-table>
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
       <template v-slot:opt>
@@ -46,11 +47,15 @@ export default defineComponent({
     const demoIndexMethod = (index: number) => {
       return index + 1
     }
+    const onSelectionChange = (selection: any) => {
+      console.log(selection)
+    }
     return {
       demoSchema,
       demoData,
       onPageChange,
-      demoIndexMethod
+      demoIndexMethod,
+      onSelectionChange
     }
   }
 })
