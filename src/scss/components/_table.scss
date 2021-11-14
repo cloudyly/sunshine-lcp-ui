@@ -1,5 +1,13 @@
 @import "../tools/sassMagic";
 @import "../acss/mp";
+@import "../base/var";
 
 @include b('SsTable') {
+
+  .header-row {
+    th {
+      background-color: rgba($color: $primary-color, $alpha: .7);
+      color: white;
+    }
+  }
 }

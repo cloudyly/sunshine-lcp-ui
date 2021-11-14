@@ -91,7 +91,7 @@ const demoJsonSchema: Schema = {
 }
 
 const demoTableData: any[] = []
-for (let i = 0; i < 9; i++) {
+for (let i = 0; i < 10; i++) {
   demoTableData.push({
     name: 'XXX',
     price: 12345.678,

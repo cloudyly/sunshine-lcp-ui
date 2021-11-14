@@ -33,7 +33,7 @@ export default defineComponent({
     return () => {
       return (
         <div class={NAME}>
-          <ElTable data={props.data} {...attrs}>
+          <ElTable data={props.data} {...attrs} headerRowClassName="header-row">
             { renderColumns() }
           </ElTable>
         </div>
