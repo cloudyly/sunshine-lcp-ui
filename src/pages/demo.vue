@@ -15,6 +15,8 @@
               :current-page="1"
               :page-size="3"
               height="300px"
+              :is-show-index="true"
+              :indexMethod="demoIndexMethod"
               @current-change="onPageChange"
               @size-change="onPageChange"
     ></ss-table>
@@ -40,10 +42,14 @@ export default defineComponent({
     const onPageChange = (page: {currentPage: number, pageSize: number}) => {
       console.log(`分页发生变化: ${page.currentPage}, ${page.pageSize}`)
     }
+    const demoIndexMethod = (index: number) => {
+      return index + 1
+    }
     return {
       demoSchema,
       demoData,
-      onPageChange
+      onPageChange,
+      demoIndexMethod
     }
   }
 })

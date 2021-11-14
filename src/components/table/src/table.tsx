@@ -1,7 +1,7 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
 import { PropItem, Schema } from '@/components/types/common-types'
 import { renderColumnBySchema } from '@/components/table/src/table-utils'
-import { ElTable } from 'element-plus'
+import { ElTable, ElTableColumn } from 'element-plus'
 
 const NAME = 'SsTable'
 
@@ -20,6 +20,16 @@ export default defineComponent({
       type: Array,
       required: false,
       default: () => ([])
+    },
+    isShowIndex: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    indexMethod: {
+      type: Function as PropType<(index: number) => number>,
+      required: false,
+      default: null
     },
     total: {
       type: Number,
@@ -55,12 +65,34 @@ export default defineComponent({
     }
   } as const,
   setup (props, { attrs, emit }) {
+    const defaultIndexMethod = (index: number) => {
+      const start = (innerCurrentPage.value - 1) * innerPageSize.value
+      return (start + index + 1)
+    }
+
+    const renderIndex = () => (
+      <ElTableColumn
+        type="index"
+        width="50"
+        label="序号"
+        align="center"
+        index={props.indexMethod ? props.indexMethod : defaultIndexMethod}
+      />
+    )
+
     const renderColumns = () => {
       const { properties } = props.schema
-      return Object.keys(properties).map(prop => {
+      const tableColumns: JSX.Element[] = []
+
+      if (props.isShowIndex) {
+        tableColumns.push(renderIndex())
+      }
+
+      Object.keys(properties).forEach(prop => {
         const propertyItem = properties[prop]
-        return renderColumn(prop, propertyItem)
+        tableColumns.push(renderColumn(prop, propertyItem))
       })
+      return tableColumns
     }
 
     const renderColumn = (prop: string, propertyItem: PropItem) => {
@@ -98,7 +130,11 @@ export default defineComponent({
     return () => {
       return (
         <div class={NAME}>
-          <ElTable data={innerData.value} {...attrs} headerRowClassName={'header-row'}>
+          <ElTable
+            data={innerData.value}
+            {...attrs}
+            headerRowClassName={'header-row'}
+          >
             {renderColumns()}
           </ElTable>
 
