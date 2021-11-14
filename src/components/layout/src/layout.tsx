@@ -119,7 +119,7 @@ export default defineComponent({
       return (
         <div class={baseClassName + ' f-r'}>
           <div class='left' style={{ width: innerLeftWidth.value }}>{slots.left && slots.left()}</div>
-          <div class='right f-1 f-c oy-h'>
+          <div class='right f-1 f-c o-h'>
             <div class='top' style={{ height: innerTopHeight.value }}>{slots.top && slots.top()}</div>
             <div class='bottom f-1 oy-h'>
               { buildMain() }
@@ -135,7 +135,7 @@ export default defineComponent({
           <div class='top' style={{ height: innerTopHeight.value }}>{slots.top && slots.top()}</div>
           <div class='bottom f-1 f-r oy-h'>
             <div class='left' style={{ width: innerLeftWidth.value }}>{slots.left && slots.left()}</div>
-            <div class='right f-1'>
+            <div class='right f-1 ox-h'>
               { buildMain() }
             </div>
           </div>
