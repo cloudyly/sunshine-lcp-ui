@@ -6,6 +6,10 @@ const defaultFormatter = (row: {[key: string] : any}, column: TableColumnCtx<any
   return cellValue
 }
 
+const booleanFormatter = (row: {[key: string] : any}, column: TableColumnCtx<any>, cellValue: boolean) => {
+  return cellValue ? '是' : '否'
+}
+
 const findTitleFromList = (value: any, list: OfItem[]) => {
   if (!list) {
     return value
@@ -31,11 +35,14 @@ const buildAnyOfFormatter = (propertyItem: PropItem) => {
 export const renderColumnBySchema = (prop: string, propertyItem: PropItem): JSX.Element => {
   let formatter = defaultFormatter
 
-  if (propertyItem.oneOf) {
+  if (propertyItem.type === PropItemTypes.BOOLEAN) {
+    formatter = booleanFormatter
+  } else if (propertyItem.oneOf) {
     formatter = buildOneOfFormatter(propertyItem)
   } else if (propertyItem.type === PropItemTypes.ARRAY && propertyItem.anyOf) {
     formatter = buildAnyOfFormatter(propertyItem)
   }
+
   return (
     <ElTableColumn
       prop={prop}
