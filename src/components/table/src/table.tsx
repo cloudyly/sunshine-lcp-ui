@@ -109,12 +109,37 @@ export default defineComponent({
       />
     )
 
+    const selectedRadio = ref<any>()
+
+    const onSelectionRadioChange = (row: any) => {
+      emit(EVENT_SELECTION_CHANGE, row ? [row] : [])
+    }
+    const renderSelectionRadio = () => {
+      const slots = {
+        default: (scope: any) => (
+          <el-radio
+            v-model={selectedRadio.value}
+            label={scope.$index}
+            onChange={() => onSelectionRadioChange(scope.row)}
+          >&nbsp;</el-radio>
+        )
+      }
+      return (
+        <ElTableColumn
+          width="50"
+          align="center" v-slots={slots}>
+        </ElTableColumn>
+      )
+    }
+
     const renderColumns = () => {
       const { properties } = props.schema
       const tableColumns: JSX.Element[] = []
 
       if (props.selectionType === 'checkbox') {
         tableColumns.push(renderSelectionCheckbox())
+      } else if (props.selectionType === 'radio') {
+        tableColumns.push(renderSelectionRadio())
       }
 
       if (props.isShowIndex) {
@@ -146,6 +171,9 @@ export default defineComponent({
 
     const onCurrentChange = (currentPage: number) => {
       innerCurrentPage.value = currentPage
+      if (props.selectionType === 'radio') {
+        selectedRadio.value = null
+      }
       emit(EVENT_CURRENT_CHANGE, {
         currentPage: innerCurrentPage.value,
         pageSize: innerPageSize.value
@@ -162,7 +190,15 @@ export default defineComponent({
 
     const onCellClick = (row: any, column: TableColumn<any>, cell: HTMLElement, event: Event) => {
       if (tableRef.value) {
-        tableRef.value.toggleRowSelection(row)
+        if (props.selectionType === 'checkbox') {
+          tableRef.value.toggleRowSelection(row)
+        } else if (props.selectionType === 'radio') {
+          const index = innerData.value.findIndex(item => item === row)
+          if (selectedRadio.value !== index) {
+            selectedRadio.value = index
+            onSelectionRadioChange(innerData.value[index])
+          }
+        }
       }
       emit(EVENT_CELL_CLICK, row, column, cell, event)
     }
