@@ -8,6 +8,7 @@
  -->
 <template>
   <ss-page>
+    <ss-table :schema="demoSchema"></ss-table>
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
       <template v-slot:opt>
         <el-button type="text">测试按钮</el-button>
@@ -18,9 +19,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import demoJsonSchema from '@/pages/demo-json-schema'
+import { Schema } from '@/components/types/common-types'
+
 export default defineComponent({
-  name: 'demo'
+  name: 'demo',
+  setup () {
+    const demoSchema = reactive<Schema>(demoJsonSchema)
+    return {
+      demoSchema
+    }
+  }
 })
 </script>
 
