@@ -3,7 +3,7 @@ import { PropItem, Schema } from '@/components/types/common-types'
 import { renderColumnBySchema } from '@/components/table/src/table-utils'
 import { ElTableColumn, ElDropdown } from 'element-plus'
 import { TableColumn, TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
-import { ArrowDown } from '@element-plus/icons'
+import { ArrowDown, Setting } from '@element-plus/icons'
 
 const NAME = 'SsTable'
 
@@ -92,9 +92,14 @@ export default defineComponent({
       type: Function as PropType<(scope: CI<any>) => RowButton[]>,
       required: false,
       default: null
+    },
+    showColumnSetting: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   } as const,
-  setup (props, { attrs, emit }) {
+  setup (props, { attrs, emit, slots }) {
     const tableRef = ref()
 
     const defaultIndexMethod = (index: number) => {
@@ -282,9 +287,41 @@ export default defineComponent({
       emit(EVENT_SELECTION_CHANGE, selection)
     }
 
+    const renderSetting = () => {
+      return (
+        <div class={`${NAME}__top--setting`}>
+          { slots.setting && slots.setting() }
+          { props.showColumnSetting ? (
+            <el-popover width="120" trigger="hover">
+              {{
+                reference: () => (
+                  <el-button type="text" size="mini">
+                    <el-icon size={14}><Setting /></el-icon>
+                    &nbsp;列设置
+                  </el-button>
+                ),
+                default: () => (
+                  <div>
+                    <span>aaaa</span>
+                    <span>aaaa</span>
+                    <span>aaaa</span>
+                  </div>
+                )
+              }}
+            </el-popover>
+
+          ) : null}
+        </div>
+      )
+    }
+
     return () => {
       return (
         <div class={NAME}>
+          <div class={`${NAME}__top`}>
+            <div class={`${NAME}__top--opt`}>批量操作</div>
+            { renderSetting() }
+          </div>
           <el-table
             ref={tableRef}
             data={innerData.value}

@@ -4,6 +4,22 @@
 
 @include b('SsTable') {
 
+  @include e(top) {
+    @extend .f;
+    //font-size: 14px;
+    //margin: 5px 0;
+
+    @include m(opt) {
+      @extend .f-1;
+    }
+
+    @include m(setting) {
+      .el-button {
+        margin-left: 10px;
+      }
+    }
+  }
+
   .header-row {
     th {
       background-color: rgba($color: $primary-color, $alpha: .8);

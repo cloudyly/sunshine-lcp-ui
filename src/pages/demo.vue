@@ -22,7 +22,9 @@
               @selection-change="onSelectionChange"
               :row-buttons="rowButtons"
               @row-buttons-click="onRowButtonsClick"
-    ></ss-table>
+              :show-column-setting="true"
+    >
+    </ss-table>
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
       <template v-slot:opt>
         <el-button type="text">测试按钮</el-button>
