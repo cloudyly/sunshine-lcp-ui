@@ -34,6 +34,7 @@ export const UI_DISABLED = 'ui:disabled'
 export const UI_WIDTH = 'ui:width'
 export const UI_OPTIONS = 'ui:options'
 export const UI_WIDGET = 'ui:widget'
+export const UI_COLUMN = 'ui:column'
 
 enum UiWidgets {
   SELECT = 'select',
@@ -46,7 +47,8 @@ export type UiSchemaItem = {
   [UI_DISABLED]?: boolean;
   [UI_WIDTH]?: number;
   [UI_OPTIONS]?: { [key: string]: any };
-  [UI_WIDGET]?: UiWidgets
+  [UI_WIDGET]?: UiWidgets;
+  [UI_COLUMN]?: number;
 }
 
 export type UiSchema = {

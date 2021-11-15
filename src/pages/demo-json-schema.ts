@@ -130,6 +130,9 @@ const demoFormUiSchema: UiSchema = {
     'ui:options': {
       placeholder: '请输入名字'
     }
+  },
+  anyOf: {
+    'ui:column': 2
   }
 }
 

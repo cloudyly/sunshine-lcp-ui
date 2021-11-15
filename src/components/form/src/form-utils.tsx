@@ -1,6 +1,6 @@
 import {
   PropItem,
-  PropItemTypes,
+  PropItemTypes, UI_COLUMN,
   UI_DISABLED,
   UI_HIDDEN,
   UI_OPTIONS,
@@ -14,6 +14,9 @@ export const renderFormItem = (
   uiItem: UiSchemaItem = {},
   defaultSpan: number
 ): JSX.Element | null => {
+  if (uiItem[UI_HIDDEN]) {
+    return null
+  }
   const { type, anyOf, oneOf, format } = item
   const commonProps = uiItem[UI_OPTIONS] || {}
   commonProps.disabled = (uiItem[UI_DISABLED] === true)
@@ -59,11 +62,12 @@ export const renderFormItem = (
     }
     return <div>Other Type</div>
   }
-  return !uiItem[UI_HIDDEN] ? (
-    <el-col span={defaultSpan}>
+  const uiColumn = uiItem[UI_COLUMN] || 1
+  return (
+    <el-col span={defaultSpan * uiColumn}>
       <el-form-item label={item.title} prop={prop}>
         { generateItem() }
       </el-form-item>
     </el-col>
-  ) : null
+  )
 }
