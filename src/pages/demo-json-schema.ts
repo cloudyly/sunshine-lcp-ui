@@ -94,6 +94,12 @@ const demoUiSchema: UiSchema = {
   maxLengthString: {
     'ui:hidden': true
   },
+  name: {
+    'ui:width': 200,
+    'ui:options': {
+      fixed: 'left'
+    }
+  },
   anyOf: {
     'ui:width': 200
   }

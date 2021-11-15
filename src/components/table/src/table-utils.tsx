@@ -1,4 +1,4 @@
-import { OfItem, PropItem, PropItemTypes, UI_WIDTH, UiSchemaItem } from '@/components/types/common-types'
+import { OfItem, PropItem, PropItemTypes, UI_OPTIONS, UI_WIDTH, UiSchemaItem } from '@/components/types/common-types'
 import { ElTableColumn } from 'element-plus'
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 import { Slots } from 'vue'
@@ -44,6 +44,10 @@ export const renderColumnBySchema = (prop: string, propertyItem: PropItem, uiIte
     formatter = buildAnyOfFormatter(propertyItem)
   }
 
+  const uiOptions = uiItem[UI_OPTIONS] || {}
+  delete uiOptions.prop
+  delete uiOptions.width
+
   return (
     <ElTableColumn
       prop={prop}
@@ -51,6 +55,7 @@ export const renderColumnBySchema = (prop: string, propertyItem: PropItem, uiIte
       label={propertyItem.title}
       formatter={formatter}
       headerAlign="center"
+      {...uiOptions}
       v-slots={slots[prop] ? (scope: any) => slots[prop]?.(scope) : null}
     >
     </ElTableColumn>

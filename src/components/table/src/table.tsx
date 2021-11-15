@@ -160,6 +160,7 @@ export default defineComponent({
         width="50"
         label="序号"
         align="center"
+        fixed="left"
         index={props.indexMethod ? props.indexMethod : defaultIndexMethod}
       />
     )
@@ -169,6 +170,7 @@ export default defineComponent({
         type="selection"
         width="50"
         align="center"
+        fixed="left"
       />
     )
 
@@ -190,7 +192,9 @@ export default defineComponent({
       return (
         <ElTableColumn
           width="50"
-          align="center" v-slots={slots}>
+          fixed="left"
+          align="center"
+          v-slots={slots}>
         </ElTableColumn>
       )
     }

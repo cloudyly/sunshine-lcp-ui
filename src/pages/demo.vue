@@ -28,7 +28,7 @@
               @opt-create-click="onOptCreateClick"
               @opt-batch-delete-click="onOptBatchDeleteClick"
     >
-      <template #name="{row}">{{ row.name }} - Hello </template>
+      <template #name="{row, $index}">{{ row.name }} - Hello {{$index}}</template>
     </ss-table>
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
       <template v-slot:opt>
