@@ -40,7 +40,9 @@ export enum UiWidgets {
   SELECT = 'select',
   RADIO = 'radio',
   CHECKBOX = 'checkbox',
-  SWITCH = 'switch'
+  SWITCH = 'switch',
+  INPUT = 'input',
+  TEXTAREA = 'textarea'
 }
 
 export type UiSchemaItem = {

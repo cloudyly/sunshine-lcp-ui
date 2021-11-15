@@ -140,6 +140,13 @@ const demoFormUiSchema: UiSchema = {
   },
   anyOf: {
     'ui:widget': 'checkbox'
+  },
+  maxLengthString: {
+    'ui:column': 3,
+    'ui:widget': 'textarea',
+    'ui:options': {
+      rows: 5
+    }
   }
 }
 

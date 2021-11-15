@@ -27,12 +27,26 @@ export const renderFormItem = (
     switch (type) {
       case PropItemTypes.STRING: {
         if (!oneOf && !format) {
-          return (
-            <el-input
-              v-model={form[prop]}
-              {...commonProps}
-            />
-          )
+          const uiWidget = uiItem[UI_WIDGET] || 'input'
+          if (uiWidget === UiWidgets.INPUT) {
+            return (
+              <el-input
+                v-model={form[prop]}
+                {...commonProps}
+              />
+            )
+          } else if (uiWidget === UiWidgets.TEXTAREA) {
+            return (
+              <el-input
+                v-model={form[prop]}
+                rows={2}
+                type="textarea"
+                {...commonProps}
+              />
+            )
+          } else {
+            throw Error('仅支持 input 和 textarea')
+          }
         }
         if (format === 'date') {
           return (
@@ -136,7 +150,7 @@ export const renderFormItem = (
             )
           } else if (uiWidget === UiWidgets.CHECKBOX) {
             return (
-              <el-checkbox-group v-model={form[prop]}>
+              <el-checkbox-group v-model={form[prop]} {...commonProps}>
                 {
                   anyOf.map(item => (
                     <el-checkbox label={item.const}>{item.title}</el-checkbox>
@@ -147,6 +161,9 @@ export const renderFormItem = (
           } else {
             throw Error('anyOf 只支持 select 和 checkbox')
           }
+        }
+        if (format) {
+          // TODO 日期、时间、日期时间区间、数字区间
         }
         break
       }
