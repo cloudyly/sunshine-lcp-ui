@@ -1,6 +1,7 @@
 import { OfItem, PropItem, PropItemTypes, UI_WIDTH, UiSchemaItem } from '@/components/types/common-types'
 import { ElTableColumn } from 'element-plus'
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
+import { Slots } from 'vue'
 
 const defaultFormatter = (row: {[key: string] : any}, column: TableColumnCtx<any>, cellValue: any) => {
   return cellValue
@@ -32,7 +33,7 @@ const buildAnyOfFormatter = (propertyItem: PropItem) => {
   }
 }
 
-export const renderColumnBySchema = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem = {}): JSX.Element => {
+export const renderColumnBySchema = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem = {}, slots: Slots): JSX.Element => {
   let formatter = defaultFormatter
 
   if (propertyItem.type === PropItemTypes.BOOLEAN) {
@@ -50,6 +51,8 @@ export const renderColumnBySchema = (prop: string, propertyItem: PropItem, uiIte
       label={propertyItem.title}
       formatter={formatter}
       headerAlign="center"
-    />
+      v-slots={slots[prop] ? (scope: any) => slots[prop]?.(scope) : null}
+    >
+    </ElTableColumn>
   )
 }

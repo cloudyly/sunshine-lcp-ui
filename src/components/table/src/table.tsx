@@ -1,4 +1,4 @@
-import { computed, defineComponent, PropType, reactive, ref } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import { PropItem, Schema, UI_HIDDEN, UiSchema, UiSchemaItem } from '@/components/types/common-types'
 import { renderColumnBySchema } from '@/components/table/src/table-utils'
 import { ElDropdown, ElTableColumn } from 'element-plus'
@@ -288,7 +288,7 @@ export default defineComponent({
     }
 
     const renderColumn = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem) => {
-      return renderColumnBySchema(prop, propertyItem, uiItem)
+      return renderColumnBySchema(prop, propertyItem, uiItem, slots)
     }
 
     const innerCurrentPage = ref(props.currentPage <= 0 ? 1 : props.currentPage)
