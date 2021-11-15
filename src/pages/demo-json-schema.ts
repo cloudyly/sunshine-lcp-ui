@@ -124,10 +124,20 @@ for (let i = 0; i < 33; i++) {
   })
 }
 
+const demoFormUiSchema: UiSchema = {
+  name: {
+    // 'ui:disabled': true
+    'ui:options': {
+      placeholder: '请输入名字'
+    }
+  }
+}
+
 const demoModel = demoTableData[0]
 export {
   demoTableData,
   demoUiSchema,
-  demoModel
+  demoModel,
+  demoFormUiSchema
 }
 export default demoJsonSchema

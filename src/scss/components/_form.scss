@@ -2,4 +2,9 @@
 @import "../acss/mp";
 
 @include b('SsForm') {
+
+  .el-form-item__label {
+    font-size: 12px;
+    padding-right: 5px;
+  }
 }

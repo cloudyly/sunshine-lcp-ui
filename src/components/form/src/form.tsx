@@ -1,5 +1,6 @@
 import { defineComponent, PropType, reactive } from 'vue'
-import { PropItem, Schema, UI_HIDDEN, UiSchema, UiSchemaItem } from '@/components/types/common-types'
+import { Schema, UiSchema } from '@/components/types/common-types'
+import { renderFormItem } from '@/components/form/src/form-utils'
 
 const NAME = 'SsForm'
 
@@ -30,13 +31,7 @@ export default defineComponent({
     // const formRef = ref()
     const form = reactive(props.model)
 
-    const renderFormItem = (prop: string, item: PropItem, uiItem: UiSchemaItem = {}) => {
-      return !uiItem[UI_HIDDEN] ? (
-        <el-form-item label={item.title}>
-          <el-input v-model={form[prop]}></el-input>
-        </el-form-item>
-      ) : null
-    }
+    const defaultSpan = 24 / props.column
 
     const renderForm = () => {
       const properties = props.schema.properties
@@ -44,7 +39,7 @@ export default defineComponent({
       Object.keys(properties).forEach((prop: string) => {
         const item = properties[prop]
         const uiItem = props.uiSchema[prop]
-        const formItem = renderFormItem(prop, item, uiItem)
+        const formItem = renderFormItem(form, prop, item, uiItem, defaultSpan)
         if (formItem) {
           formItems.push(formItem)
         }
@@ -54,8 +49,10 @@ export default defineComponent({
 
     return () => (
       <div class={NAME}>
-        <el-form ref="formRef" model={form} labelWidth="auto">
-          {renderForm()}
+        <el-form ref="formRef" model={form} labelWidth="auto" size="mini">
+          <el-row gutter={5}>
+            {renderForm()}
+          </el-row>
         </el-form>
       </div>
     )

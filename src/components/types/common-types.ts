@@ -33,12 +33,20 @@ export const UI_HIDDEN = 'ui:hidden'
 export const UI_DISABLED = 'ui:disabled'
 export const UI_WIDTH = 'ui:width'
 export const UI_OPTIONS = 'ui:options'
+export const UI_WIDGET = 'ui:widget'
+
+enum UiWidgets {
+  SELECT = 'select',
+  RADIO = 'radio',
+  CHECKBOX = 'checkbox'
+}
 
 export type UiSchemaItem = {
   [UI_HIDDEN]?: boolean;
   [UI_DISABLED]?: boolean;
   [UI_WIDTH]?: number;
-  [UI_OPTIONS]?: { [key: string]: any }
+  [UI_OPTIONS]?: { [key: string]: any };
+  [UI_WIDGET]?: UiWidgets
 }
 
 export type UiSchema = {
