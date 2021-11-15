@@ -88,9 +88,39 @@ export const renderFormItem = (
         )
         break
       }
-      // case PropItemTypes.BOOLEAN: {
-      //   break
-      // }
+      case PropItemTypes.BOOLEAN: {
+        const uiWidget = uiItem[UI_WIDGET] || 'switch'
+        const booleanOneOf = [
+          { const: true, title: '是' },
+          { const: false, title: '否' }
+        ]
+        if (uiWidget === UiWidgets.SWITCH) {
+          return (
+            <el-switch v-model={form[prop]} {...commonProps} />
+          )
+        } else if (uiWidget === UiWidgets.RADIO) {
+          return (
+            <el-radio-group v-model={form[prop]} {...commonProps}>
+              { booleanOneOf.map(one => (
+                <el-radio label={one.const}>{one.title}</el-radio>
+              ))}
+            </el-radio-group>
+          )
+        } else if (uiWidget === UiWidgets.SELECT) {
+          return (
+            <el-select v-model={form[prop]} {...commonProps}>
+              {
+                booleanOneOf.map(one => (
+                  <el-option label={one.title} value={one.const}/>
+                ))
+              }
+            </el-select>
+          )
+        } else {
+          throw Error('boolean 只支持widget：switch, radio, select')
+        }
+        break
+      }
       default:
         return <div>暂不支持类型 {type}</div>
     }

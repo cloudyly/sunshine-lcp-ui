@@ -134,6 +134,9 @@ const demoFormUiSchema: UiSchema = {
   enum: {
     'ui:column': 2,
     'ui:widget': UiWidgets.RADIO
+  },
+  boolean: {
+    'ui:widget': 'select'
   }
 }
 
