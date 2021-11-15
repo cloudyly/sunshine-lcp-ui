@@ -18,13 +18,15 @@
               :page-size="5"
               height="300px"
               :show-index="true"
-              selection-type=""
+              selection-type="checkbox"
               @current-change="onPageChange"
               @size-change="onPageChange"
               @selection-change="onSelectionChange"
               :row-buttons="rowButtons"
               @row-buttons-click="onRowButtonsClick"
               :show-column-setting="true"
+              @opt-create-click="onOptCreateClick"
+              @opt-batch-delete-click="onOptBatchDeleteClick"
     >
     </ss-table>
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
@@ -75,6 +77,12 @@ export default defineComponent({
         console.log('查看', scope.row.name)
       }
     }
+    const onOptBatchDeleteClick = (selectionList: any) => {
+      console.log('批量删除', selectionList)
+    }
+    const onOptCreateClick = () => {
+      console.log('新增')
+    }
     return {
       demoSchema,
       uiSchema,
@@ -83,7 +91,9 @@ export default defineComponent({
       demoIndexMethod,
       onSelectionChange,
       rowButtons,
-      onRowButtonsClick
+      onRowButtonsClick,
+      onOptCreateClick,
+      onOptBatchDeleteClick
     }
   }
 })

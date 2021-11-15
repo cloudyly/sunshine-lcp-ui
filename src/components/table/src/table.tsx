@@ -15,6 +15,8 @@ const EVENT_SIZE_CHANGE = 'size-change'
 const EVENT_CELL_CLICK = 'cell-click'
 const EVENT_SELECTION_CHANGE = 'selection-change'
 const EVENT_ROW_BUTTON_CLICK = 'row-buttons-click'
+const EVENT_OPT_CREATE_CLICK = 'opt-create-click'
+const EVENT_OPT_BATCH_DELETE_CLICK = 'opt-batch-delete-click'
 
 type ColumnSetting = {
   prop: string;
@@ -30,7 +32,9 @@ export default defineComponent({
     EVENT_SIZE_CHANGE,
     EVENT_CELL_CLICK,
     EVENT_SELECTION_CHANGE,
-    EVENT_ROW_BUTTON_CLICK
+    EVENT_ROW_BUTTON_CLICK,
+    EVENT_OPT_CREATE_CLICK,
+    EVENT_OPT_BATCH_DELETE_CLICK
   ],
   props: {
     schema: {
@@ -106,6 +110,16 @@ export default defineComponent({
       default: null
     },
     showColumnSetting: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showOptCreate: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showOptBatchDelete: {
       type: Boolean,
       required: false,
       default: true
@@ -210,7 +224,7 @@ export default defineComponent({
         <ElDropdown size="mini">
           <el-button type="text" size="mini">更多
             <el-icon class="el-icon--right">
-              <ArrowDown />
+              <ArrowDown/>
             </el-icon>
           </el-button>
           {{
@@ -347,26 +361,26 @@ export default defineComponent({
     const renderSetting = () => {
       return (
         <div class={`${NAME}__top--setting`}>
-          { slots.setting && slots.setting() }
-          { props.showColumnSetting ? (
+          {slots.setting && slots.setting()}
+          {props.showColumnSetting ? (
             <el-popover width="120" trigger="hover">
               {{
                 reference: () => (
                   <el-button type="text" size="mini">
-                    <el-icon size={14}><Setting /></el-icon>
+                    <el-icon size={14}><Setting/></el-icon>
                     &nbsp;列设置
                   </el-button>
                 ),
                 default: () => (
                   <div>
                     <el-button type="text" size="mini" onClick={onResetColumnSettingsClick}>重置</el-button>
-                    { columnSettings.value.map(columnSetting => (
+                    {columnSettings.value.map(columnSetting => (
                       <div>
                         <el-checkbox checked={!columnSetting.hidden} size="mini"
                           onChange={(checked: boolean) => onColumnSettingsCheckChange(checked, columnSetting)}
                         >{columnSetting.title}</el-checkbox>
                       </div>
-                    )) }
+                    ))}
                   </div>
                 )
               }}
@@ -377,12 +391,36 @@ export default defineComponent({
       )
     }
 
+    const onOptCreateClick = () => {
+      emit(EVENT_OPT_CREATE_CLICK)
+    }
+    const onOptBatchDeleteClick = () => {
+      emit(EVENT_OPT_BATCH_DELETE_CLICK, selectionList.value)
+    }
+
+    const renderOpt = () => (
+      <div class={`${NAME}__top--opt`}>
+        {props.showOptCreate ? (
+          <el-button type="text" size="mini"
+            onClick={onOptCreateClick}>新增</el-button>
+        ) : null}
+
+        {props.showOptBatchDelete && props.selectionType ? (
+          <el-button type="text" size="mini"
+            onClick={onOptBatchDeleteClick}
+            disabled={selectionList.value.length <= 0}>批量删除</el-button>
+        ) : null}
+
+        {slots.opt && slots.opt()}
+      </div>
+    )
+
     return () => {
       return (
         <div class={NAME}>
           <div class={`${NAME}__top`}>
-            <div class={`${NAME}__top--opt`}>批量操作</div>
-            { renderSetting() }
+            {renderOpt()}
+            {renderSetting()}
           </div>
           <el-table
             ref={tableRef}
