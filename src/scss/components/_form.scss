@@ -19,4 +19,8 @@
   .el-select {
     width: 100%;
   }
+
+  .el-input-number {
+    width: calc(100% - 1px);
+  }
 }
