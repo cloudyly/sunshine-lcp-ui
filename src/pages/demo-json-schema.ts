@@ -1,4 +1,4 @@
-import { Schema, UiSchema } from '@/components/types/common-types'
+import { Schema, UiSchema, UiWidgets } from '@/components/types/common-types'
 
 const demoJsonSchema: Schema = {
   properties: {
@@ -131,8 +131,9 @@ const demoFormUiSchema: UiSchema = {
       placeholder: '请输入名字'
     }
   },
-  anyOf: {
-    'ui:column': 2
+  enum: {
+    'ui:column': 2,
+    'ui:widget': UiWidgets.RADIO
   }
 }
 

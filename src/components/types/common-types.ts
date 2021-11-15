@@ -36,7 +36,7 @@ export const UI_OPTIONS = 'ui:options'
 export const UI_WIDGET = 'ui:widget'
 export const UI_COLUMN = 'ui:column'
 
-enum UiWidgets {
+export enum UiWidgets {
   SELECT = 'select',
   RADIO = 'radio',
   CHECKBOX = 'checkbox'
@@ -47,7 +47,7 @@ export type UiSchemaItem = {
   [UI_DISABLED]?: boolean;
   [UI_WIDTH]?: number;
   [UI_OPTIONS]?: { [key: string]: any };
-  [UI_WIDGET]?: UiWidgets;
+  [UI_WIDGET]?: UiWidgets | string;
   [UI_COLUMN]?: number;
 }
 

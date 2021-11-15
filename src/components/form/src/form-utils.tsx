@@ -1,10 +1,13 @@
 import {
   PropItem,
-  PropItemTypes, UI_COLUMN,
+  PropItemTypes,
+  UI_COLUMN,
   UI_DISABLED,
   UI_HIDDEN,
   UI_OPTIONS,
-  UiSchemaItem
+  UI_WIDGET,
+  UiSchemaItem,
+  UiWidgets
 } from '@/components/types/common-types'
 
 export const renderFormItem = (
@@ -48,15 +51,30 @@ export const renderFormItem = (
       //   )
       // }
       if (oneOf && oneOf.length > 0) {
-        return (
-          <el-select v-model={form[prop]} {...commonProps}>
-            {
-              oneOf.map(one => (
-                <el-option label={one.title} value={one.const}/>
-              ))
-            }
-          </el-select>
-        )
+        const uiWidget = uiItem[UI_WIDGET] || 'select'
+        if (uiWidget === UiWidgets.SELECT) {
+          return (
+            <el-select v-model={form[prop]} {...commonProps}>
+              {
+                oneOf.map(one => (
+                  <el-option label={one.title} value={one.const}/>
+                ))
+              }
+            </el-select>
+          )
+        } else if (uiWidget === UiWidgets.RADIO) {
+          return (
+            <el-radio-group v-model={form[prop]} {...commonProps}>
+              {
+                oneOf.map(one => (
+                  <el-radio label={one.const}>{one.title}</el-radio>
+                ))
+              }
+            </el-radio-group>
+          )
+        } else {
+          throw Error('oneOf 只能使用 radio 或 select')
+        }
       }
       return <div>Other String</div>
     }
