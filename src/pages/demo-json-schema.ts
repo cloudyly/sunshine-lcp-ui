@@ -137,6 +137,9 @@ const demoFormUiSchema: UiSchema = {
   },
   boolean: {
     'ui:widget': 'select'
+  },
+  anyOf: {
+    'ui:widget': 'checkbox'
   }
 }
 

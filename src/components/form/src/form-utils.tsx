@@ -20,7 +20,7 @@ export const renderFormItem = (
   if (uiItem[UI_HIDDEN]) {
     return null
   }
-  const { type, oneOf, format } = item
+  const { type, oneOf, anyOf, format } = item
   const commonProps = uiItem[UI_OPTIONS] || {}
   commonProps.disabled = (uiItem[UI_DISABLED] === true)
   const generateItem = () => {
@@ -118,6 +118,35 @@ export const renderFormItem = (
           )
         } else {
           throw Error('boolean 只支持widget：switch, radio, select')
+        }
+        break
+      }
+      case PropItemTypes.ARRAY: {
+        if (anyOf && anyOf.length > 0) {
+          const uiWidget = uiItem[UI_WIDGET] || 'select'
+          if (uiWidget === UiWidgets.SELECT) {
+            return (
+              <el-select v-model={form[prop]} multiple {...commonProps}>
+                {
+                  anyOf.map(item => (
+                    <el-option label={item.title} value={item.const}/>
+                  ))
+                }
+              </el-select>
+            )
+          } else if (uiWidget === UiWidgets.CHECKBOX) {
+            return (
+              <el-checkbox-group v-model={form[prop]}>
+                {
+                  anyOf.map(item => (
+                    <el-checkbox label={item.const}>{item.title}</el-checkbox>
+                  ))
+                }
+              </el-checkbox-group>
+            )
+          } else {
+            throw Error('anyOf 只支持 select 和 checkbox')
+          }
         }
         break
       }
