@@ -1,4 +1,4 @@
-import { OfItem, PropItem, PropItemTypes } from '@/components/types/common-types'
+import { OfItem, PropItem, PropItemTypes, UI_WIDTH, UiSchemaItem } from '@/components/types/common-types'
 import { ElTableColumn } from 'element-plus'
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 
@@ -32,7 +32,7 @@ const buildAnyOfFormatter = (propertyItem: PropItem) => {
   }
 }
 
-export const renderColumnBySchema = (prop: string, propertyItem: PropItem): JSX.Element => {
+export const renderColumnBySchema = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem = {}): JSX.Element => {
   let formatter = defaultFormatter
 
   if (propertyItem.type === PropItemTypes.BOOLEAN) {
@@ -46,6 +46,7 @@ export const renderColumnBySchema = (prop: string, propertyItem: PropItem): JSX.
   return (
     <ElTableColumn
       prop={prop}
+      width={uiItem[UI_WIDTH] ? uiItem[UI_WIDTH] : 'auto'}
       label={propertyItem.title}
       formatter={formatter}
       headerAlign="center"

@@ -1,4 +1,4 @@
-import { Schema } from '@/components/types/common-types'
+import { Schema, UiSchema } from '@/components/types/common-types'
 
 const demoJsonSchema: Schema = {
   properties: {
@@ -90,6 +90,15 @@ const demoJsonSchema: Schema = {
   required: ['MaxLengthString']
 }
 
+const demoUiSchema: UiSchema = {
+  maxLengthString: {
+    'ui:hidden': true
+  },
+  anyOf: {
+    'ui:width': 200
+  }
+}
+
 const demoTableData: any[] = []
 for (let i = 0; i < 33; i++) {
   demoTableData.push({
@@ -109,6 +118,7 @@ for (let i = 0; i < 33; i++) {
   })
 }
 export {
-  demoTableData
+  demoTableData,
+  demoUiSchema
 }
 export default demoJsonSchema

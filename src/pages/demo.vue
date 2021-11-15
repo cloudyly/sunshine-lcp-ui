@@ -8,14 +8,16 @@
  -->
 <template>
   <ss-page>
-    <ss-table :schema="demoSchema" :data="demoData" :stripe="true" :border="true"
+    <ss-table :schema="demoSchema" :stripe="true" :border="true"
+              :ui-schema="uiSchema"
+              :data="demoData"
               show-pagination="always"
               :total="demoData.length"
               :is-pseudo-paging="true"
               :current-page="1"
               :page-size="5"
               height="300px"
-              :is-show-index="true"
+              :show-index="true"
               selection-type=""
               @current-change="onPageChange"
               @size-change="onPageChange"
@@ -36,13 +38,14 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import demoJsonSchema, { demoTableData } from '@/pages/demo-json-schema'
-import { Schema } from '@/components/types/common-types'
+import demoJsonSchema, { demoTableData, demoUiSchema } from '@/pages/demo-json-schema'
+import { Schema, UiSchema } from '@/components/types/common-types'
 
 export default defineComponent({
   name: 'demo',
   setup () {
     const demoSchema = reactive<Schema>(demoJsonSchema)
+    const uiSchema = reactive<UiSchema>(demoUiSchema)
     const demoData = reactive<any[]>(demoTableData)
     const onPageChange = (page: {currentPage: number, pageSize: number}) => {
       console.log(`分页发生变化: ${page.currentPage}, ${page.pageSize}`)
@@ -74,6 +77,7 @@ export default defineComponent({
     }
     return {
       demoSchema,
+      uiSchema,
       demoData,
       onPageChange,
       demoIndexMethod,

@@ -1,7 +1,7 @@
-import { computed, defineComponent, PropType, ref } from 'vue'
-import { PropItem, Schema } from '@/components/types/common-types'
+import { computed, defineComponent, PropType, reactive, ref } from 'vue'
+import { PropItem, Schema, UI_HIDDEN, UiSchema, UiSchemaItem } from '@/components/types/common-types'
 import { renderColumnBySchema } from '@/components/table/src/table-utils'
-import { ElTableColumn, ElDropdown } from 'element-plus'
+import { ElDropdown, ElTableColumn } from 'element-plus'
 import { TableColumn, TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 import { ArrowDown, Setting } from '@element-plus/icons'
 
@@ -15,6 +15,13 @@ const EVENT_SIZE_CHANGE = 'size-change'
 const EVENT_CELL_CLICK = 'cell-click'
 const EVENT_SELECTION_CHANGE = 'selection-change'
 const EVENT_ROW_BUTTON_CLICK = 'row-buttons-click'
+
+type ColumnSetting = {
+  prop: string;
+  type?: string;
+  title: string;
+  hidden: boolean;
+}
 
 export default defineComponent({
   name: NAME,
@@ -30,12 +37,17 @@ export default defineComponent({
       type: Object as PropType<Schema>,
       required: true
     },
+    uiSchema: {
+      type: Object as PropType<UiSchema>,
+      required: false,
+      default: null
+    },
     data: {
       type: Array,
       required: false,
       default: () => ([])
     },
-    isShowIndex: {
+    showIndex: {
       type: Boolean,
       required: false,
       default: false
@@ -101,6 +113,27 @@ export default defineComponent({
   } as const,
   setup (props, { attrs, emit, slots }) {
     const tableRef = ref()
+
+    const columnSettings = reactive<ColumnSetting[]>([])
+
+    const buildColumnSettings = () => {
+      const { schema, uiSchema, showIndex } = props
+      if (showIndex) {
+        columnSettings.push({ prop: 'index', type: 'index', title: '序号', hidden: false })
+      }
+
+      const properties = schema.properties
+      Object.keys(properties).forEach((prop: string) => {
+        const title = properties[prop].title || ''
+        const ui = uiSchema[prop]
+        const hidden = ui ? (ui[UI_HIDDEN] === true) : false
+        if (!hidden) {
+          columnSettings.push({ prop, title, hidden })
+        }
+      })
+    }
+
+    buildColumnSettings()
 
     const defaultIndexMethod = (index: number) => {
       const start = (innerCurrentPage.value - 1) * innerPageSize.value
@@ -214,14 +247,24 @@ export default defineComponent({
         tableColumns.push(renderSelectionRadio())
       }
 
-      if (props.isShowIndex) {
-        tableColumns.push(renderIndex())
-      }
+      // if (props.showIndex) {
+      //   tableColumns.push(renderIndex())
+      // }
 
-      Object.keys(properties).forEach(prop => {
-        const propertyItem = properties[prop]
-        tableColumns.push(renderColumn(prop, propertyItem))
+      columnSettings.forEach((columnSettings: ColumnSetting) => {
+        const prop = columnSettings.prop
+        if (columnSettings.type === 'index') {
+          tableColumns.push(renderIndex())
+        } else if (!columnSettings.hidden) {
+          const propertyItem = properties[prop]
+          const uiItem = props.uiSchema[prop]
+          tableColumns.push(renderColumn(prop, propertyItem, uiItem))
+        }
       })
+      // Object.keys(properties).forEach(prop => {
+      //   const propertyItem = properties[prop]
+      //   tableColumns.push(renderColumn(prop, propertyItem))
+      // })
 
       if (typeof props.rowButtons === 'function') {
         tableColumns.push(renderRowButtons())
@@ -230,8 +273,8 @@ export default defineComponent({
       return tableColumns
     }
 
-    const renderColumn = (prop: string, propertyItem: PropItem) => {
-      return renderColumnBySchema(prop, propertyItem)
+    const renderColumn = (prop: string, propertyItem: PropItem, uiItem: UiSchemaItem) => {
+      return renderColumnBySchema(prop, propertyItem, uiItem)
     }
 
     const innerCurrentPage = ref(props.currentPage <= 0 ? 1 : props.currentPage)
