@@ -1,15 +1,20 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
 import { PropItem, Schema } from '@/components/types/common-types'
 import { renderColumnBySchema } from '@/components/table/src/table-utils'
-import { ElTableColumn } from 'element-plus'
-import { TableColumn } from 'element-plus/es/components/table/src/table-column/defaults'
+import { ElTableColumn, ElDropdown } from 'element-plus'
+import { TableColumn, TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
+import { ArrowDown } from '@element-plus/icons'
 
 const NAME = 'SsTable'
+
+type CI<T> = { column: TableColumnCtx<T>; $index: number }
+type RowButton = { key: symbol, label: string }
 
 const EVENT_CURRENT_CHANGE = 'current-change'
 const EVENT_SIZE_CHANGE = 'size-change'
 const EVENT_CELL_CLICK = 'cell-click'
 const EVENT_SELECTION_CHANGE = 'selection-change'
+const EVENT_ROW_BUTTON_CLICK = 'row-buttons-click'
 
 export default defineComponent({
   name: NAME,
@@ -17,7 +22,8 @@ export default defineComponent({
     EVENT_CURRENT_CHANGE,
     EVENT_SIZE_CHANGE,
     EVENT_CELL_CLICK,
-    EVENT_SELECTION_CHANGE
+    EVENT_SELECTION_CHANGE,
+    EVENT_ROW_BUTTON_CLICK
   ],
   props: {
     schema: {
@@ -81,6 +87,11 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false
+    },
+    rowButtons: {
+      type: Function as PropType<(scope: CI<any>) => RowButton[]>,
+      required: false,
+      default: null
     }
   } as const,
   setup (props, { attrs, emit }) {
@@ -132,6 +143,62 @@ export default defineComponent({
       )
     }
 
+    const onRowButtonClick = (key: symbol, scope: CI<any>) => {
+      emit(EVENT_ROW_BUTTON_CLICK, key, scope)
+    }
+
+    const buildRowButtonItem = (rowButton: RowButton, scope: CI<any>) => (
+      <el-button size="mini" type="text"
+        onClick={() => onRowButtonClick(rowButton.key, scope)}
+      >{rowButton.label}</el-button>
+    )
+
+    const renderOptSlots = (scope: CI<any>) => {
+      const rowButtons = props.rowButtons(scope)
+      // 小于等于2个按钮时，直接展示
+      // if (rowButtons.length <= 2) {
+      return rowButtons.map((rowButton: RowButton) => (
+        <el-button size="mini" type="text"
+          onClick={() => onRowButtonClick(rowButton.key, scope)}
+        >{rowButton.label}</el-button>
+      ))
+      // }
+
+      // TODO 大于2个按钮时，先展示第一个，其余的在下拉菜单中展示
+      const els: JSX.Element[] = []
+      els.push(buildRowButtonItem(rowButtons[0], scope)) // 先添加第一个按钮
+      // 添加dropdown
+      els.push((
+        <ElDropdown size="mini">
+          <el-button type="text" size="mini">更多
+            <el-icon class="el-icon--right">
+              <ArrowDown />
+            </el-icon>
+          </el-button>
+          {{
+            dropdown: () => (<el-dropdown-menu>
+              <el-dropdown-item>Action 1</el-dropdown-item>
+              <el-dropdown-item>Action 2</el-dropdown-item>
+              <el-dropdown-item>Action 3</el-dropdown-item>
+            </el-dropdown-menu>)
+          }}
+        </ElDropdown>
+      ))
+      return els
+    }
+
+    const renderRowButtons = () => {
+      return (
+        <ElTableColumn
+          label="操作"
+          width="120"
+          fixed="right"
+          align="center">
+          {{ default: (scope: CI<any>) => renderOptSlots(scope) }}
+        </ElTableColumn>
+      )
+    }
+
     const renderColumns = () => {
       const { properties } = props.schema
       const tableColumns: JSX.Element[] = []
@@ -150,6 +217,11 @@ export default defineComponent({
         const propertyItem = properties[prop]
         tableColumns.push(renderColumn(prop, propertyItem))
       })
+
+      if (typeof props.rowButtons === 'function') {
+        tableColumns.push(renderRowButtons())
+      }
+
       return tableColumns
     }
 
@@ -216,6 +288,7 @@ export default defineComponent({
           <el-table
             ref={tableRef}
             data={innerData.value}
+            fit={true}
             {...attrs}
             headerRowClassName={'header-row'}
             onCellClick={onCellClick}
