@@ -44,6 +44,17 @@ export const renderFormItem = (
       //     />
       //   )
       // }
+      if (oneOf && oneOf.length > 0) {
+        return (
+          <el-select v-model={form[prop]} {...commonProps}>
+            {
+              oneOf.map(one => (
+                <el-option label={one.title} value={one.const}/>
+              ))
+            }
+          </el-select>
+        )
+      }
       return <div>Other String</div>
     }
     return <div>Other Type</div>
