@@ -44,7 +44,7 @@ export default defineComponent({
     uiSchema: {
       type: Object as PropType<UiSchema>,
       required: false,
-      default: null
+      default: () => ({})
     },
     data: {
       type: Array,

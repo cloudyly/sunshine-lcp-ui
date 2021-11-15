@@ -123,8 +123,11 @@ for (let i = 0; i < 33; i++) {
     htmlContent: 'Link'
   })
 }
+
+const demoModel = demoTableData[0]
 export {
   demoTableData,
-  demoUiSchema
+  demoUiSchema,
+  demoModel
 }
 export default demoJsonSchema

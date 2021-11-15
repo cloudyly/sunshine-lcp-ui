@@ -8,6 +8,7 @@
  -->
 <template>
   <ss-page>
+    <ss-form :schema="demoSchema" :model="formModel" :ui-schema="uiSchema"></ss-form>
     <ss-table :schema="demoSchema" :stripe="true" :border="true"
               :ui-schema="uiSchema"
               :data="demoData"
@@ -41,7 +42,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import demoJsonSchema, { demoTableData, demoUiSchema } from '@/pages/demo-json-schema'
+import demoJsonSchema, { demoModel, demoTableData, demoUiSchema } from '@/pages/demo-json-schema'
 import { Schema, UiSchema } from '@/components/types/common-types'
 
 export default defineComponent({
@@ -84,6 +85,8 @@ export default defineComponent({
     const onOptCreateClick = () => {
       console.log('新增')
     }
+
+    const formModel = reactive(demoModel)
     return {
       demoSchema,
       uiSchema,
@@ -94,7 +97,8 @@ export default defineComponent({
       rowButtons,
       onRowButtonsClick,
       onOptCreateClick,
-      onOptBatchDeleteClick
+      onOptBatchDeleteClick,
+      formModel
     }
   }
 })

@@ -10,6 +10,7 @@ import SsToggleScreen from './toggle-screen'
 import SsPage from './page'
 import SsCard from './card'
 import SsTable from './table'
+import SsForm from './form'
 import '../scss/index.scss'
 // import ElementPlus from 'element-plus'
 
@@ -24,7 +25,8 @@ const components = [
   SsToggleScreen,
   SsPage,
   SsCard,
-  SsTable
+  SsTable,
+  SsForm
 ] // end
 
 const install: (app: App) => void = (app: App) => {
