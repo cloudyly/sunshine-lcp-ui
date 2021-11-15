@@ -114,12 +114,12 @@ export default defineComponent({
   setup (props, { attrs, emit, slots }) {
     const tableRef = ref()
 
-    const columnSettings = reactive<ColumnSetting[]>([])
+    const columnSettings = ref<ColumnSetting[]>([])
 
     const buildColumnSettings = () => {
       const { schema, uiSchema, showIndex } = props
       if (showIndex) {
-        columnSettings.push({ prop: 'index', type: 'index', title: '序号', hidden: false })
+        columnSettings.value.push({ prop: 'index', type: 'index', title: '序号', hidden: false })
       }
 
       const properties = schema.properties
@@ -128,7 +128,7 @@ export default defineComponent({
         const ui = uiSchema[prop]
         const hidden = ui ? (ui[UI_HIDDEN] === true) : false
         if (!hidden) {
-          columnSettings.push({ prop, title, hidden })
+          columnSettings.value.push({ prop, title, hidden })
         }
       })
     }
@@ -251,9 +251,9 @@ export default defineComponent({
       //   tableColumns.push(renderIndex())
       // }
 
-      columnSettings.forEach((columnSettings: ColumnSetting) => {
+      columnSettings.value.forEach((columnSettings: ColumnSetting) => {
         const prop = columnSettings.prop
-        if (columnSettings.type === 'index') {
+        if (columnSettings.type === 'index' && !columnSettings.hidden) {
           tableColumns.push(renderIndex())
         } else if (!columnSettings.hidden) {
           const propertyItem = properties[prop]
@@ -330,6 +330,20 @@ export default defineComponent({
       emit(EVENT_SELECTION_CHANGE, selection)
     }
 
+    const onColumnSettingsCheckChange = (checked: boolean, columnSetting: ColumnSetting) => {
+      columnSetting.hidden = !checked
+      setTimeout(() => {
+        tableRef.value.doLayout()
+      }, 3000)
+    }
+
+    const onResetColumnSettingsClick = () => {
+      columnSettings.value.forEach(columnSettings => {
+        columnSettings.hidden = false
+      })
+      tableRef.value.doLayout()
+    }
+
     const renderSetting = () => {
       return (
         <div class={`${NAME}__top--setting`}>
@@ -345,9 +359,14 @@ export default defineComponent({
                 ),
                 default: () => (
                   <div>
-                    <span>aaaa</span>
-                    <span>aaaa</span>
-                    <span>aaaa</span>
+                    <el-button type="text" size="mini" onClick={onResetColumnSettingsClick}>重置</el-button>
+                    { columnSettings.value.map(columnSetting => (
+                      <div>
+                        <el-checkbox checked={!columnSetting.hidden} size="mini"
+                          onChange={(checked: boolean) => onColumnSettingsCheckChange(checked, columnSetting)}
+                        >{columnSetting.title}</el-checkbox>
+                      </div>
+                    )) }
                   </div>
                 )
               }}
