@@ -4,6 +4,8 @@ import { renderFormItem } from '@/components/form/src/form-utils'
 
 const NAME = 'SsForm'
 
+const EVENT_DATA_CHANGE = 'data-change'
+
 export default defineComponent({
   name: NAME,
   props: {
@@ -26,12 +28,15 @@ export default defineComponent({
       default: 3
     }
   } as const,
-  setup (props, context) {
-    console.log(props, context)
+  setup (props, { emit }) {
     // const formRef = ref()
     const form = reactive(props.model)
 
     const defaultSpan = 24 / props.column
+
+    const onChange = (key: string, value: any): void => {
+      emit(EVENT_DATA_CHANGE, key, value, form)
+    }
 
     const renderForm = () => {
       const properties = props.schema.properties
@@ -39,7 +44,7 @@ export default defineComponent({
       Object.keys(properties).forEach((prop: string) => {
         const item = properties[prop]
         const uiItem = props.uiSchema[prop]
-        const formItem = renderFormItem(form, prop, item, uiItem, defaultSpan)
+        const formItem = renderFormItem(form, prop, item, uiItem, defaultSpan, onChange)
         if (formItem) {
           formItems.push(formItem)
         }

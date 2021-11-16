@@ -15,7 +15,8 @@ export const renderFormItem = (
   prop: string,
   item: PropItem,
   uiItem: UiSchemaItem = {},
-  defaultSpan: number
+  defaultSpan: number,
+  onChange: (key: string, value: any) => void
 ): JSX.Element | null => {
   if (uiItem[UI_HIDDEN]) {
     return null
@@ -32,6 +33,7 @@ export const renderFormItem = (
             return (
               <el-input
                 v-model={form[prop]}
+                onInput={(value: any) => onChange(prop, value)}
                 {...commonProps}
               />
             )
@@ -41,6 +43,7 @@ export const renderFormItem = (
                 v-model={form[prop]}
                 rows={2}
                 type="textarea"
+                onInput={(value: any) => onChange(prop, value)}
                 {...commonProps}
               />
             )
@@ -53,6 +56,7 @@ export const renderFormItem = (
             <el-date-picker
               v-model={form[prop]}
               type="date"
+              onChange={(value: any) => onChange(prop, value)}
               {...commonProps}
             />
           )
@@ -69,7 +73,10 @@ export const renderFormItem = (
           const uiWidget = uiItem[UI_WIDGET] || 'select'
           if (uiWidget === UiWidgets.SELECT) {
             return (
-              <el-select v-model={form[prop]} {...commonProps}>
+              <el-select
+                v-model={form[prop]}
+                onChange={(value: any) => onChange(prop, value)}
+                {...commonProps}>
                 {
                   oneOf.map(one => (
                     <el-option label={one.title} value={one.const}/>
@@ -79,7 +86,10 @@ export const renderFormItem = (
             )
           } else if (uiWidget === UiWidgets.RADIO) {
             return (
-              <el-radio-group v-model={form[prop]} {...commonProps}>
+              <el-radio-group
+                v-model={form[prop]}
+                onChange={(value: any) => onChange(prop, value)}
+                {...commonProps}>
                 {
                   oneOf.map(one => (
                     <el-radio label={one.const}>{one.title}</el-radio>
@@ -98,6 +108,7 @@ export const renderFormItem = (
           <el-input-number
             v-model={form[prop]}
             {...commonProps}
+            onInput={(value: number) => onChange(prop, value)}
           />
         )
         break
@@ -110,11 +121,19 @@ export const renderFormItem = (
         ]
         if (uiWidget === UiWidgets.SWITCH) {
           return (
-            <el-switch v-model={form[prop]} {...commonProps} />
+            <el-switch
+              v-model={form[prop]}
+              onChange={(value: any) => onChange(prop, value)}
+              {...commonProps}
+            />
           )
         } else if (uiWidget === UiWidgets.RADIO) {
           return (
-            <el-radio-group v-model={form[prop]} {...commonProps}>
+            <el-radio-group
+              v-model={form[prop]}
+              onChange={(value: any) => onChange(prop, value)}
+              {...commonProps}
+            >
               { booleanOneOf.map(one => (
                 <el-radio label={one.const}>{one.title}</el-radio>
               ))}
@@ -122,7 +141,11 @@ export const renderFormItem = (
           )
         } else if (uiWidget === UiWidgets.SELECT) {
           return (
-            <el-select v-model={form[prop]} {...commonProps}>
+            <el-select
+              v-model={form[prop]}
+              onChange={(value: any) => onChange(prop, value)}
+              {...commonProps}
+            >
               {
                 booleanOneOf.map(one => (
                   <el-option label={one.title} value={one.const}/>
@@ -140,7 +163,12 @@ export const renderFormItem = (
           const uiWidget = uiItem[UI_WIDGET] || 'select'
           if (uiWidget === UiWidgets.SELECT) {
             return (
-              <el-select v-model={form[prop]} multiple {...commonProps}>
+              <el-select
+                v-model={form[prop]}
+                multiple
+                onChange={(value: any) => onChange(prop, value)}
+                {...commonProps}
+              >
                 {
                   anyOf.map(item => (
                     <el-option label={item.title} value={item.const}/>
@@ -150,7 +178,11 @@ export const renderFormItem = (
             )
           } else if (uiWidget === UiWidgets.CHECKBOX) {
             return (
-              <el-checkbox-group v-model={form[prop]} {...commonProps}>
+              <el-checkbox-group
+                v-model={form[prop]}
+                {...commonProps}
+                onChange={(value: any) => onChange(prop, value)}
+              >
                 {
                   anyOf.map(item => (
                     <el-checkbox label={item.const}>{item.title}</el-checkbox>

@@ -8,29 +8,33 @@
  -->
 <template>
   <ss-page>
-    <ss-form :schema="demoSchema" :model="formModel" :ui-schema="formUiSchema"></ss-form>
-    <ss-table :schema="demoSchema" :stripe="true" :border="true"
-              :ui-schema="uiSchema"
-              :data="demoData"
-              show-pagination="always"
-              :total="demoData.length"
-              :is-pseudo-paging="true"
-              :current-page="1"
-              :page-size="5"
-              height="300px"
-              :show-index="true"
-              selection-type="checkbox"
-              @current-change="onPageChange"
-              @size-change="onPageChange"
-              @selection-change="onSelectionChange"
-              :row-buttons="rowButtons"
-              @row-buttons-click="onRowButtonsClick"
-              :show-column-setting="true"
-              @opt-create-click="onOptCreateClick"
-              @opt-batch-delete-click="onOptBatchDeleteClick"
-    >
-      <template #name="{row, $index}">{{ row.name }} - Hello {{$index}}</template>
-    </ss-table>
+    <ss-form :schema="demoSchema"
+             :model="formModel"
+             :ui-schema="formUiSchema"
+             @data-change="onFormChange"
+    ></ss-form>
+<!--    <ss-table :schema="demoSchema" :stripe="true" :border="true"-->
+<!--              :ui-schema="uiSchema"-->
+<!--              :data="demoData"-->
+<!--              show-pagination="always"-->
+<!--              :total="demoData.length"-->
+<!--              :is-pseudo-paging="true"-->
+<!--              :current-page="1"-->
+<!--              :page-size="5"-->
+<!--              height="300px"-->
+<!--              :show-index="true"-->
+<!--              selection-type="checkbox"-->
+<!--              @current-change="onPageChange"-->
+<!--              @size-change="onPageChange"-->
+<!--              @selection-change="onSelectionChange"-->
+<!--              :row-buttons="rowButtons"-->
+<!--              @row-buttons-click="onRowButtonsClick"-->
+<!--              :show-column-setting="true"-->
+<!--              @opt-create-click="onOptCreateClick"-->
+<!--              @opt-batch-delete-click="onOptBatchDeleteClick"-->
+<!--    >-->
+<!--      <template #name="{row, $index}">{{ row.name }} - Hello {{$index}}</template>-->
+<!--    </ss-table>-->
     <ss-card class="box-card" title="测试标题" :collapsable="true" shadow="hover">
       <template v-slot:opt>
         <el-button type="text">测试按钮</el-button>
@@ -88,6 +92,9 @@ export default defineComponent({
 
     const formModel = reactive(demoModel)
     const formUiSchema = reactive(demoFormUiSchema)
+    const onFormChange = (key: string, value: any) => {
+      console.log(key, value)
+    }
     return {
       demoSchema,
       uiSchema,
@@ -100,7 +107,8 @@ export default defineComponent({
       onOptCreateClick,
       onOptBatchDeleteClick,
       formModel,
-      formUiSchema
+      formUiSchema,
+      onFormChange
     }
   }
 })
