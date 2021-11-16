@@ -12,7 +12,12 @@
              :model="formModel"
              :ui-schema="formUiSchema"
              @data-change="onFormChange"
-    ></ss-form>
+    >
+      <template #customSlot="form">
+        <span v-if="form.enum === '1'" style="color: red">测试1</span>
+        <span v-if="form.enum === '2'" style="color: blue">测试2</span>
+      </template>
+    </ss-form>
 <!--    <ss-table :schema="demoSchema" :stripe="true" :border="true"-->
 <!--              :ui-schema="uiSchema"-->
 <!--              :data="demoData"-->

@@ -28,7 +28,7 @@ export default defineComponent({
       default: 3
     }
   } as const,
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     // const formRef = ref()
     const form = reactive(props.model)
 
@@ -44,7 +44,7 @@ export default defineComponent({
       Object.keys(properties).forEach((prop: string) => {
         const item = properties[prop]
         const uiItem = props.uiSchema[prop]
-        const formItem = renderFormItem(form, prop, item, uiItem, defaultSpan, onChange)
+        const formItem = renderFormItem(form, prop, item, uiItem, defaultSpan, onChange, slots)
         if (formItem) {
           formItems.push(formItem)
         }

@@ -9,6 +9,7 @@ import {
   UiSchemaItem,
   UiWidgets
 } from '@/components/types/common-types'
+import { Slots } from 'vue'
 
 export const renderFormItem = (
   form: { [key: string]: any },
@@ -16,7 +17,8 @@ export const renderFormItem = (
   item: PropItem,
   uiItem: UiSchemaItem = {},
   defaultSpan: number,
-  onChange: (key: string, value: any) => void
+  onChange: (key: string, value: any) => void,
+  slots: Slots
 ): JSX.Element | null => {
   if (uiItem[UI_HIDDEN]) {
     return null
@@ -24,7 +26,11 @@ export const renderFormItem = (
   const { type, oneOf, anyOf, format } = item
   const commonProps = uiItem[UI_OPTIONS] || {}
   commonProps.disabled = (uiItem[UI_DISABLED] === true)
+
   const generateItem = () => {
+    if (slots[prop]) {
+      return () => slots[prop]?.(form)
+    }
     switch (type) {
       case PropItemTypes.STRING: {
         if (!oneOf && !format) {
