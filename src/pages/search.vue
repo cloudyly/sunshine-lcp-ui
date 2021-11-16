@@ -18,11 +18,12 @@
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
 import { Schema, UiSchema } from '@/components/types/common-types'
+import { couponSchema } from '@/pages/search-page-constant'
 
 export default defineComponent({
   name: 'search',
   setup () {
-    const schema: Schema = reactive({ properties: {} })
+    const schema: Schema = reactive(couponSchema)
     const uiSchema: UiSchema = reactive({})
     const model: any = reactive({})
     return {

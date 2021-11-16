@@ -2,4 +2,8 @@
 @import "../acss/mp";
 
 @include b('SsSearchCard') {
+
+  @include e(opt) {
+    text-align: right;
+  }
 }
