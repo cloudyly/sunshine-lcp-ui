@@ -11,6 +11,7 @@ import SsPage from './page'
 import SsCard from './card'
 import SsTable from './table'
 import SsForm from './form'
+import SsSearchCard from './search-card'
 import '../scss/index.scss'
 // import ElementPlus from 'element-plus'
 
@@ -26,7 +27,8 @@ const components = [
   SsPage,
   SsCard,
   SsTable,
-  SsForm
+  SsForm,
+  SsSearchCard
 ] // end
 
 const install: (app: App) => void = (app: App) => {
