@@ -215,9 +215,6 @@ export const renderFormItem = (
   }
   const uiColumn = uiItem[UI_COLUMN] || 1
   const labelWidth = (uiItem[UI_OPTIONS] || {}).labelWidth === undefined ? 'auto' : (uiItem[UI_OPTIONS] || {}).labelWidth
-  if (prop === 'opt') {
-    console.log('opt labelWidth', labelWidth)
-  }
   return (
     <el-col span={defaultSpan * uiColumn}>
       <el-form-item label={item.title} prop={prop} label-width={labelWidth}>

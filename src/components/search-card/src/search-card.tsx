@@ -1,9 +1,11 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
 import { commonFormProps } from '@/components/types/common-props'
-import { PropItem } from '@/components/types/common-types'
+import { PropItem, UI_COLUMN } from '@/components/types/common-types'
 import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons'
 
 const NAME = 'SsSearchCard'
+
+const OPT_KEY = 'opt'
 
 export default defineComponent({
   name: NAME,
@@ -33,14 +35,14 @@ export default defineComponent({
       }
       if (!isSimpleSearch.value) {
         const newSchema = { ...schema }
-        newSchema.properties.opt = opt
+        newSchema.properties[OPT_KEY] = opt
         return newSchema
       }
       const newProperties: {[key: string]: PropItem} = {}
       innerSimpleSearchField.value.forEach(item => {
         newProperties[item] = schema.properties[item]
       })
-      newProperties.opt = opt
+      newProperties[OPT_KEY] = opt
       const newSchema = {
         ...schema,
         properties: newProperties
@@ -48,12 +50,28 @@ export default defineComponent({
       return newSchema
     })
 
+    const calcOptColumn = () => {
+      let totalColumn = 0
+      Object.keys(innerSchema.value.properties).forEach(key => {
+        if (key !== OPT_KEY) {
+          const uiProperties = (props.uiSchema || {})[key]
+          if (uiProperties && uiProperties[UI_COLUMN]) {
+            totalColumn += (uiProperties[UI_COLUMN] || 1)
+          } else {
+            totalColumn += 1
+          }
+        }
+      })
+      console.log('计算opt的 ui:column', totalColumn, (props.column - totalColumn % props.column))
+      return props.column - totalColumn % props.column
+    }
+
     const innerUiSchema = computed(() => {
       const { uiSchema = {} } = props
       return {
         ...uiSchema,
-        opt: {
-          'ui:column': 3,
+        [OPT_KEY]: {
+          'ui:column': calcOptColumn(),
           'ui:options': {
             labelWidth: 1
           }
@@ -70,7 +88,6 @@ export default defineComponent({
             ) : (
               <span>折叠 <el-icon><ArrowUpBold /></el-icon></span>
             ) }
-
           </el-button>
           <el-button type='default' size='mini'>重置</el-button>
           <el-button type='primary' size='mini'>搜索</el-button>
