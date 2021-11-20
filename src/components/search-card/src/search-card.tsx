@@ -5,7 +5,10 @@ import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons'
 
 const NAME = 'SsSearchCard'
 
-const OPT_KEY = 'opt'
+const OPT_KEY = 'inner_opt'
+
+const EVENT_RESET = 'reset'
+const EVENT_SEARCH = 'search'
 
 export default defineComponent({
   name: NAME,
@@ -17,7 +20,7 @@ export default defineComponent({
       default: null
     }
   },
-  setup (props) {
+  setup (props, { emit }) {
     const isSimpleSearch = ref(true)
 
     const innerSimpleSearchField = computed<string[]>(() => {
@@ -79,6 +82,15 @@ export default defineComponent({
       }
     })
 
+    const onResetBtnClick = () => {
+      console.log('点击重置按钮')
+      emit(EVENT_RESET)
+    }
+    const onSearchBtnClick = () => {
+      console.log('点击搜索按钮', props.model)
+      emit(EVENT_SEARCH, props.model)
+    }
+
     const optSlot = () => {
       return (
         <div class={`${NAME}__opt`}>
@@ -89,10 +101,13 @@ export default defineComponent({
               <span>折叠 <el-icon><ArrowUpBold /></el-icon></span>
             ) }
           </el-button>
-          <el-button type='default' size='mini'>重置</el-button>
-          <el-button type='primary' size='mini'>搜索</el-button>
+          <el-button type='default' size='mini' onClick={onResetBtnClick}>重置</el-button>
+          <el-button type='primary' size='mini' onClick={onSearchBtnClick}>搜索</el-button>
         </div>
       )
+    }
+    const slots = {
+      [OPT_KEY]: optSlot
     }
     return () => (
       <div class={NAME}>
@@ -102,7 +117,7 @@ export default defineComponent({
             uiSchema={innerUiSchema.value}
             model={props.model}
           >
-            {{ opt: optSlot }}
+            {slots}
           </ss-form>
         </ss-card>
       </div>

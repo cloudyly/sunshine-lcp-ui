@@ -206,6 +206,15 @@ export const renderFormItem = (
         }
         if (format) {
           // TODO 日期、时间、日期时间区间、数字区间
+          if (format === 'date') {
+            return (
+              <el-date-picker type="daterange"
+                v-model={form[prop]}
+                range-separator=" - "
+              >
+              </el-date-picker>
+            )
+          }
         }
         break
       }
