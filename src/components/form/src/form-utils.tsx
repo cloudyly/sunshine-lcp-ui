@@ -26,6 +26,10 @@ export const renderFormItem = (
   const { type, oneOf, anyOf, format } = item
   const commonProps = uiItem[UI_OPTIONS] || {}
   commonProps.disabled = (uiItem[UI_DISABLED] === true)
+  // 添加默认的placeholder
+  if (!commonProps.placeholder) {
+    commonProps.placeholder = item.title
+  }
 
   const generateItem = () => {
     if (slots[prop]) {
