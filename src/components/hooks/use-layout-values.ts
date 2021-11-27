@@ -5,7 +5,7 @@ import {
   defaultTopHeight,
   LayoutValues,
   LayoutValuesKey
-} from '@/components/layout/src/constant'
+} from '../layout/src/constant'
 
 export const useLayoutValues = (): LayoutValues => {
   const layoutValues = inject<LayoutValues>(LayoutValuesKey, {

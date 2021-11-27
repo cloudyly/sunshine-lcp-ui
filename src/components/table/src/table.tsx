@@ -1,6 +1,6 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
-import { PropItem, Schema, UI_HIDDEN, UiSchema, UiSchemaItem } from '@/components/types/common-types'
-import { renderColumnBySchema } from '@/components/table/src/table-utils'
+import { PropItem, Schema, UI_HIDDEN, UiSchema, UiSchemaItem } from '../../types/common-types'
+import { renderColumnBySchema } from '../../table/src/table-utils'
 import { ElDropdown, ElTableColumn } from 'element-plus'
 import { TableColumn, TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 import { ArrowDown, Setting } from '@element-plus/icons'

@@ -1,6 +1,6 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
-import { commonFormProps } from '@/components/types/common-props'
-import { PropItem, UI_COLUMN } from '@/components/types/common-types'
+import { commonFormProps } from '../../types/common-props'
+import { PropItem, UI_COLUMN } from '../../types/common-types'
 import { ArrowDownBold, ArrowUpBold } from '@element-plus/icons'
 
 const NAME = 'SsSearchCard'

@@ -1,5 +1,5 @@
 import { PropType } from 'vue'
-import { Schema, UiSchema } from '@/components/types/common-types'
+import { Schema, UiSchema } from '../types/common-types'
 
 export const commonFormProps = {
   schema: {

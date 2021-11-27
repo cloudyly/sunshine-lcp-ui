@@ -1,6 +1,6 @@
 import { computed, defineComponent } from 'vue'
-import { useRenderSiteInfo } from '@/components/hooks/use-render-site-info'
-import { useLayoutValues } from '@/components/hooks/use-layout-values'
+import { useRenderSiteInfo } from '../../hooks/use-render-site-info'
+import { useLayoutValues } from '../../hooks/use-layout-values'
 
 const NAME = 'SsLeftSide'
 

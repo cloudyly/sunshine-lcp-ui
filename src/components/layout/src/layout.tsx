@@ -6,8 +6,8 @@ import {
   LayoutType,
   LayoutValues,
   LayoutValuesKey
-} from '@/components/layout/src/constant'
-import emitter, { EVENT_EXPAND_LEFT } from '@/components/emitter'
+} from '../../layout/src/constant'
+import emitter, { EVENT_EXPAND_LEFT } from '../../emitter'
 import { Handler } from 'mitt'
 
 const NAME = 'SsLayout'

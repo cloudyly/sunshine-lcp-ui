@@ -8,7 +8,7 @@ import {
   UI_WIDGET,
   UiSchemaItem,
   UiWidgets
-} from '@/components/types/common-types'
+} from '../../types/common-types'
 import { Slots } from 'vue'
 
 export const renderFormItem = (

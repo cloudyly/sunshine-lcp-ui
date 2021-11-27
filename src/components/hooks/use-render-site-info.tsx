@@ -1,5 +1,5 @@
-import { LayoutType } from '@/components/layout/src/constant'
-import { useLayoutValues } from '@/components/hooks/use-layout-values'
+import { LayoutType } from '../layout/src/constant'
+import { useLayoutValues } from '../hooks/use-layout-values'
 
 export const useRenderSiteInfo = (logo: string, appName: string, layoutType: string, host: string): JSX.Element | null => {
   if (!logo && !appName) {

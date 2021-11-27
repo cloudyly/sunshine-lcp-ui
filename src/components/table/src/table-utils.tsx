@@ -1,4 +1,4 @@
-import { OfItem, PropItem, PropItemTypes, UI_OPTIONS, UI_WIDTH, UiSchemaItem } from '@/components/types/common-types'
+import { OfItem, PropItem, PropItemTypes, UI_OPTIONS, UI_WIDTH, UiSchemaItem } from '../../types/common-types'
 import { ElTableColumn } from 'element-plus'
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 import { Slots } from 'vue'

@@ -1,5 +1,5 @@
 import { computed, defineComponent } from 'vue'
-import emitter, { EVENT_EXPAND_LEFT } from '@/components/emitter'
+import emitter, { EVENT_EXPAND_LEFT } from '../../emitter'
 
 const NAME = 'SsToggleLeft'
 

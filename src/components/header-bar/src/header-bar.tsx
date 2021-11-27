@@ -1,7 +1,7 @@
 import { computed, defineComponent, PropType, ref } from 'vue'
-import { useLayoutValues } from '@/components/hooks/use-layout-values'
-import { useRenderSiteInfo } from '@/components/hooks/use-render-site-info'
-import { LayoutType } from '@/components/layout/src/constant'
+import { useLayoutValues } from '../../hooks/use-layout-values'
+import { useRenderSiteInfo } from '../../hooks/use-render-site-info'
+import { LayoutType } from '../../layout/src/constant'
 
 const NAME = 'SsHeaderBar'
 

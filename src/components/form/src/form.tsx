@@ -1,6 +1,6 @@
 import { defineComponent, PropType, reactive } from 'vue'
-import { Schema, UiSchema } from '@/components/types/common-types'
-import { renderFormItem } from '@/components/form/src/form-utils'
+import { Schema, UiSchema } from '../../types/common-types'
+import { renderFormItem } from '../../form/src/form-utils'
 
 const NAME = 'SsForm'
 
