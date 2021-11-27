@@ -1,7 +1,7 @@
 {
   "name": "sunshine-lcp-ui",
   "packageManager": "yarn",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": false,
   "main": "./lib/sunshine-lcp-ui.umd.js",
   "module": "./lib/sunshine-lcp-ui.umd.js",
