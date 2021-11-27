@@ -12,9 +12,10 @@ import SsCard from './card'
 import SsTable from './table'
 import SsForm from './form'
 import SsSearchCard from './search-card'
-import '../scss/index.scss'
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import 'element-plus/dist/index.css'
+import '../scss/index.scss'
 
 const components = [
   SsDemo,
