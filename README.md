@@ -1,4 +1,4 @@
-# sunshine-ui "作栋梁，创未来"
+# sunshine-lcp-ui "作栋梁，创未来"
 
 ## 工程目录说明
 
