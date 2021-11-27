@@ -13,7 +13,8 @@ import SsTable from './table'
 import SsForm from './form'
 import SsSearchCard from './search-card'
 import '../scss/index.scss'
-// import ElementPlus from 'element-plus'
+import ElementPlus from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 const components = [
   SsDemo,
@@ -33,12 +34,29 @@ const components = [
 
 const install: (app: App) => void = (app: App) => {
   // 引入 Element Plus
-  // app.use(ElementPlus)
+  app.use(ElementPlus, { size: 'mini', locale: zhCn })
 
   // 引入自定义组件
   components.forEach(component => {
     app.component(component.name, component)
   })
+}
+
+export {
+  install,
+  SsDemo,
+  SsLayout,
+  SsHeaderBar,
+  SsAppLogo,
+  SsLeftSide,
+  SsSvgIcon,
+  SsToggleLeft,
+  SsToggleScreen,
+  SsPage,
+  SsCard,
+  SsTable,
+  SsForm,
+  SsSearchCard
 }
 
 export default {

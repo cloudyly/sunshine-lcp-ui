@@ -1,11 +1,13 @@
 {
-  "name": "sunshine-ui",
+  "name": "sunshine-lcp-ui",
   "packageManager": "yarn",
   "version": "0.1.2",
-  "private": true,
+  "private": false,
+  "main": "./lib/sunshine-ui.umd.js",
+  "module": "./lib/sunshine-ui.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:lib": "vue-cli-service build --target lib --dest lib src/components/index.ts --mode production",
     "lint": "vue-cli-service lint",
     "gen:component": "node ./script/gen-component.js"
   },
