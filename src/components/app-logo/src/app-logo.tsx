@@ -24,7 +24,7 @@ export default defineComponent({
       if (props.logo) {
         return (
           <div class={`${NAME}--logo`}>
-            <img src={require(`@/assets/${props.logo}`)} />
+            <img src={`${props.logo}`} />
           </div>
         )
       }

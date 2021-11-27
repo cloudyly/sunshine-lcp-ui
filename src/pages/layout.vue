@@ -10,7 +10,7 @@
   <div class="full-screen">
     <ss-layout type="tlr">
       <template #top>
-        <ss-header-bar logo="logo.png"
+        <ss-header-bar logo="/demo.png"
                        app-name="XXX后台管理"
                        :is-show-toggle-left="true"
                        :is-show-toggle-screen="true"

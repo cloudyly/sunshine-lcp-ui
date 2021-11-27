@@ -10,7 +10,7 @@
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 |  ----  | ----  | ----  | ----  | ----  |
-| logo | 左侧展开时左上角logo，图片需要放到src/assets下，传入图片名称 | String |  | |
+| logo | 左侧展开时左上角logo，图片需要放到public目录下，图片名称 | String |  | |
 |                     |                                                              |         | | |
 | app-name | 应用名称 | String | | |
 | nav-list | 一级导航列表（数组每项见 nav-item） | Array | | |
